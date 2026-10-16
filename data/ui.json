@@ -7,7 +7,7 @@
     "nav": {
       "notes": "Notes",
       "projects": "Work",
-      "research": "Writings"
+      "writings": "Writings"
     },
     "filters": {
       "all": "All Types",
@@ -44,7 +44,7 @@
     "nav": {
       "notes": "짧은 말들,",
       "projects": "만든 것들,",
-      "research": "글들."
+      "writings": "글들."
     },
     "filters": {
       "all": "전체",

@@ -11,7 +11,7 @@
 ```
 portfolio/
 ├── index.html          ← 프로젝트 목록 (메인)
-├── research.html       ← Writings 목록 (기존 주소 유지)
+├── writings.html       ← Writings 목록
 ├── notes.html          ← 노트 (텍스트 글타래)
 ├── project.html        ← 프로젝트/글 상세 — ?id=xxx 로 호출
 ├── 404.html
@@ -38,15 +38,15 @@ portfolio/
 │   │   ├── project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
 │   │   ├── project-2-draftie.json  ← Draftie
 │   │   └── project-1-another-audience.json  ← Another Audience
-│   ├── research.json   ← Writings 순서·제목·연도·태그·본문 파일 경로
-│   ├── research/       ← Writings 항목별 본문 (id + content)
-│   │   └── research-1-another-audience.json
+│   ├── writings.json   ← Writings 순서·제목·연도·태그·본문 파일 경로
+│   ├── writings/       ← Writings 항목별 본문 (id + content)
+│   │   └── writings-1-another-audience.json
 │   └── notes.json      ← 노트 목록
 │
 └── assets/
     └── images/
         ├── projects/<project-id>/    ← 프로젝트별 폴더로 정리
-        └── research/<article-id>/
+        └── writings/<article-id>/
 ```
 
 ---
@@ -146,7 +146,7 @@ assets/images/projects/project-4/
 - `title`은 문자열 또는 `{ "en": "...", "ko": "..." }` 형식입니다.
 - `aspectRatio`를 생략하면 `16 / 9`입니다. 세로 영상은 `9 / 16`, 정사각형은 `1 / 1`로 지정합니다.
 - 영상은 독립된 `embed` 블록으로 추가합니다. `media.items`에는 이미지만 넣습니다.
-- 호버용 썸네일이 필요하면 `data/projects.json` 또는 `data/research.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
+- 호버용 썸네일이 필요하면 `data/projects.json` 또는 `data/writings.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
 
 #### `categories` 값
 `graphic` · `editorial` · `web` · `product` · `workshop` · `installation` · `research`
@@ -163,26 +163,26 @@ assets/images/projects/project-4/
 
 프로젝트와 같은 방식으로 목록 정보와 본문을 나눕니다.
 
-1. `data/research.json`에 제목·연도·태그·본문 파일 경로를 추가합니다. 배열 순서가 표시 순서입니다.
+1. `data/writings.json`에는 목록용 제목·연도·태그·본문 파일 경로만 추가합니다. 이 파일에 `content` 본문을 복사하지 않습니다. 배열 순서가 표시 순서입니다.
 
 ```json
 {
-  "id": "research-2",
+  "id": "writings-2",
   "year": 2026,
   "categories": ["research"],
   "title": {
     "en": "My New Essay",
     "ko": "새 글"
   },
-  "contentFile": "data/research/research-2-my-new-essay.json"
+  "contentFile": "data/writings/writings-2-my-new-essay.json"
 }
 ```
 
-2. `data/research/research-2-my-new-essay.json`에 같은 `id`와 `content`를 작성합니다.
+2. `data/writings/writings-2-my-new-essay.json`에 같은 `id`와 `content`를 작성합니다.
 
 ```json
 {
-  "id": "research-2",
+  "id": "writings-2",
   "content": [
     {
       "type": "text",
@@ -195,9 +195,9 @@ assets/images/projects/project-4/
 }
 ```
 
-본문 파일명은 프로젝트처럼 `<id>-<영문제목>.json` 형식을 사용합니다. `content`의 이미지·텍스트·영상 임베드 블록 형식도 동일합니다. 현재 Another Audience 글의 본문은 `data/research/research-1-another-audience.json`입니다. 이미지는 `assets/images/research/<article-id>/`에 두고, 경로는 사이트 루트를 기준으로 작성합니다.
+본문 파일명은 프로젝트처럼 `<id>-<영문제목>.json` 형식을 사용합니다. `content`의 이미지·텍스트·영상 임베드 블록 형식도 동일합니다. 현재 Another Audience 글의 본문은 `data/writings/writings-1-another-audience.json`입니다. 이미지는 `assets/images/writings/<article-id>/`에 두고, 경로는 사이트 루트를 기준으로 작성합니다.
 
-> 상세 페이지는 `project.html?id=xxx&src=research`로 자동 연결됩니다.
+> 상세 페이지는 `project.html?id=xxx&src=writings`로 자동 연결됩니다.
 
 ---
 
@@ -310,7 +310,7 @@ npx serve .
 `data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-2-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
 
 **Q. Writings 본문을 수정하려면 어디를 열어요?**
-`data/research.json`의 `contentFile`에 지정된 `data/research/` 안의 파일을 엽니다. 제목·연도·태그·순서는 목록 파일에서 수정합니다.
+`data/writings.json`의 `contentFile`에 지정된 `data/writings/` 안의 파일을 엽니다. 제목·연도·태그·순서는 목록 파일에서 수정합니다.
 
 **Q. 디자인 그리드 / 행 높이를 바꾸고 싶어요**
 `--grid-cell`을 수정하면 해당 breakpoint의 정사각형 모눈·행 높이·여백이 함께 바뀝니다. 블록 끝은 모눈선에 맞추며, 창 끝의 부분 칸은 배경에서 자연스럽게 잘립니다.
@@ -337,10 +337,10 @@ npx serve .
 - Notes는 JSON 배열의 마지막 항목부터 보여 새 블록이 위로 쌓입니다. 날짜는 블록 안에 표시하고, 블록 사이 간격은 모눈 한 칸으로 유지합니다.
 - Notes와 상세 본문은 타이핑 지연 없이 즉시 표시합니다.
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
-- Work·Writings 목록은 각각 `data/projects.json`·`data/research.json`을 불러옵니다. `contentFile`로 분리한 본문은 상세 페이지 진입 또는 목록 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
+- Work·Writings 목록은 각각 `data/projects.json`·`data/writings.json`을 불러옵니다. `contentFile`로 분리한 본문은 상세 페이지 진입 또는 목록 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
-- Writings / 글들. 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
+- Writings / 글들. 탭은 `writings.html`이며, 목록은 `data/writings.json`, 글별 본문은 `data/writings/`에서 관리합니다. 상세 페이지는 `src=writings`로 구분합니다.
 - Work의 Research 타입은 프로젝트의 `categories`에 `"research"`를 추가하면 적용됩니다.
 
 ### 모눈 정렬 규칙
@@ -358,7 +358,7 @@ npx serve .
 프로젝트나 Writings 글에 호버하거나 제목 링크에 키보드 포커스를 주면 화면 중앙에 이미지가 표시되고 첫 문단은 흰색 카드로 함께 표시됩니다. 두 목록은 같은 회전·이동 효과를 사용하며, 레이어 순서는 이미지 → 모눈 → 텍스트 카드 → 목록입니다.
 
 - 기본값: 각 항목의 `content`에 있는 첫 이미지. 설명 카드는 첫 텍스트 문단을 사용하며, `contentFile`이 있으면 해당 본문 파일에서 읽습니다.
-- 별도 지정: `data/projects.json` 또는 `data/research.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 추가합니다.
+- 별도 지정: `data/projects.json` 또는 `data/writings.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 추가합니다.
 - 이미지가 없는 프로젝트도 첫 문단이 있으면 텍스트 카드만 표시합니다.
 - 썸네일은 호버할 때만 불러오며, 화면 가로·세로의 65%와 최대 840×640px 안에서 원본 비율을 유지합니다. 터치 입력에는 표시하지 않습니다.
 

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "writings-1",
+    "year": 2025,
+    "categories": [
+      "research"
+    ],
+    "title": {
+      "en": "Another Audience",
+      "ko": "Another Audience"
+    },
+    "contentFile": "data/writings/writings-1-another-audience.json"
+  }
+]

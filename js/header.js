@@ -4,7 +4,7 @@ import { t } from "./i18n.js";
 // 배열: sub-header에 필터 버튼 표시 / null: 브랜드만 표시
 const FILTERS_BY_PAGE = {
   projects: FILTERS,
-  research: null,
+  writings: null,
   notes:    null,
 };
 
@@ -12,12 +12,12 @@ function currentPage() {
   return document.body.dataset.page || "projects";
 }
 
-// project-detail 페이지는 ?src=research 여부로 탭 결정, 나머지는 페이지명 그대로
+// project-detail 페이지는 ?src=writings 여부로 탭 결정, 나머지는 페이지명 그대로
 function pageToTab() {
   const p = currentPage();
   if (p !== "project-detail") return p;
-  return new URLSearchParams(location.search).get("src") === "research"
-    ? "research"
+  return new URLSearchParams(location.search).get("src") === "writings"
+    ? "writings"
     : "projects";
 }
 
@@ -64,7 +64,7 @@ function renderHeader() {
     <div class="nav-left">
       <a class="nav-link ${activeTab === "notes"     ? "is-active" : ""}" href="notes.html">${t("nav.notes")}</a>
       <a class="nav-link ${activeTab === "projects"  ? "is-active" : ""}" href="index.html">${t("nav.projects")}</a>
-      <a class="nav-link ${activeTab === "research"  ? "is-active" : ""}" href="research.html">${t("nav.research")}</a>
+      <a class="nav-link ${activeTab === "writings"  ? "is-active" : ""}" href="writings.html">${t("nav.writings")}</a>
     </div>
 
     <div class="nav-center lang-switch" role="group" aria-label="Language">

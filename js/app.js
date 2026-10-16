@@ -4,7 +4,7 @@ import { mountGridAlignment } from "./grid-alignment.js";
 
 const VIEWS = {
   projects: "./list-view.js",
-  research: "./list-view.js",
+  writings: "./list-view.js",
   "project-detail": "./detail-view.js",
   notes: "./notes-view.js",
 };
@@ -27,12 +27,11 @@ async function boot() {
       });
       break;
 
-    case "research":
+    case "writings":
       await view.mountList({
-        dataUrl: "data/research.json",
-        containerId: "research-list",
-        detailHref: id => `project.html?id=${encodeURIComponent(id)}&src=research`,
-        // ↑ 상세 페이지는 project.html 재사용 — src=research 로 research.json에서 항목을 찾음
+        dataUrl: "data/writings.json",
+        containerId: "writings-list",
+        detailHref: id => `project.html?id=${encodeURIComponent(id)}&src=writings`,
         useFilter: false,
       });
       break;
@@ -40,7 +39,7 @@ async function boot() {
     case "project-detail": {
       const src = new URLSearchParams(location.search).get("src");
       await view.mountDetail({
-        dataUrl: src === "research" ? "data/research.json" : "data/projects.json",
+        dataUrl: src === "writings" ? "data/writings.json" : "data/projects.json",
         containerId: "project-detail",
       });
       break;
