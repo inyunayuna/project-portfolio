@@ -20,7 +20,7 @@
       "type": "text",
       "value": {
         "en": "Draftie is an experimental product design project that combines a dedicated hardware controller, the Draftie Board, with a software writing editor. Users import AI-generated text through a browser extension, and the editor compares it with the evolving draft to identify retained word combinations and sentence structures. Sentence-level highlights reveal these traces, while a document-wide percentage, the screen background, and the board’s LEDs communicate the overall revision state. By encouraging users to revise the text in their own words until the highlights disappear, Draftie explores the conditions under which authorship takes shape in human–AI co-writing.",
-        "ko": "Draftie는 이러한 인간과 AI의 코라이팅 경험을 탐색하는 라이팅 에디터이자 실험적 프로덕트 디자인 프로젝트다. 전용 하드웨어 스위치 보드인 ‘드래프티 보드’와 이에 연동된 앱으로 구성되며, 브라우저 확장 프로그램을 통해 AI가 생성한 텍스트를 가져온다. 에디터는 처음 가져온 원문과 현재 글을 비교해 어휘 조합과 문장 구조가 얼마나 남아 있는지 분석한다. 그 결과는 문장별 하이라이트, 문서 전체의 잔여 비율, 화면 배경과 보드의 LED로 나타난다. 사용자는 수정에 따라 달라지는 피드백을 보며 원문의 표현을 다시 선택하고 구성한다."
+        "ko": "Draftie는 이러한 인간과 AI의 코라이팅 경험을 탐색하는 라이팅 에디터이자 실험적 프로덕트 디자인 프로젝트이다. 전용 하드웨어 스위치 보드인 ‘드래프티 보드’와 이에 연동된 앱으로 구성되며, 브라우저 확장 프로그램을 통해 AI가 생성한 텍스트를 가져온다. 에디터는 처음 가져온 원문과 현재 글을 비교해 어휘 조합과 문장 구조가 얼마나 남아 있는지 분석한다. 그 결과는 문장별 하이라이트, 문서 전체의 잔여 비율, 화면 배경과 보드의 LED로 나타난다. 사용자는 수정에 따라 달라지는 피드백을 보며 원문의 표현을 다시 선택하고 구성한다."
       }
     },
     {
