@@ -154,7 +154,7 @@ body[data-lang="ko"] {
 
 .project-preview-text-position {
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   pointer-events: none;
   user-select: none;
   width: min(340px, calc(100vw - 48px));
@@ -525,11 +525,11 @@ body[data-lang="ko"] {
 .note-body {
   background-color: var(--c-bg);
   border: 1px solid var(--c-fg);
-  padding: calc(var(--grid-cell) * 0.5) calc(var(--grid-cell) * 0.65);
-  line-height: 1.6;
+  padding: 0.25em var(--row-pad-x);
+  line-height: var(--lh-base);
 }
 
-.note-body p + p { margin-top: 0.8em; }
+.note-body p + p { margin-top: 0.5em; }
 
 :where(a, button):focus-visible {
   outline: 2px solid currentColor;

@@ -43,10 +43,10 @@ export function mountProjectPreview(container, items) {
   const imageElement = layer.querySelector("img");
   const textPosition = layer.querySelector(".project-preview-text-position");
   const textElement = layer.querySelector(".project-preview-text");
-  // Give text its own stacking level above the grid, below the project rows.
   textPosition.inert = true;
   textPosition.setAttribute("aria-hidden", "true");
-  main.prepend(layer, textPosition);
+  main.prepend(layer);
+  document.body.append(textPosition);
   let activeRow = null;
   let activeImage = null;
   let hasText = false;
