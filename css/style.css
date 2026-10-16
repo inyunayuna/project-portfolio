@@ -1,0 +1,561 @@
+/* 한국어 폰트 스택 전용 Merriweather — 영문자·숫자 범위만 커버.
+   이 범위 밖의 문자(특수기호, 한글 등)는 Noto Serif KR이 처리. */
+@font-face {
+  font-family: "MerriweatherText";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/merriweather/v33/u-4e0qyriQwlOrhSvowK_l5UcA6zuSYEqOzpPe3HOZJ5eX1WtLaQwmYiSeqqJ-mXq1Gi.woff2) format('woff2');
+  unicode-range: U+0030-0039, U+0041-005A, U+0061-007A;
+}
+
+/* =========================================================================
+   Yuna Portfolio — Design System v4
+   ---------------------------------------------------------------------------
+   핵심 원칙:
+   - body는 흰 배경 (격자 없음)
+   - .main-area에만 격자가 깔리고, 격자의 첫 가로선(y=0)이 자연스러운 경계선
+   - 검은 바가 격자 셀에 정확히 정렬:
+       · 좌측 = 격자 첫 세로선 (container padding 1 cell)
+       · 위/아래 = 격자 가로선 (list padding-top 1 cell, row height 1 cell)
+       · 행 사이 간격 1 cell
+   - 네비-필터는 자연 line-height만 사용, 추가 마진 없음
+   ========================================================================= */
+
+:root {
+  /* --- Typography ------------------------------------------------------- */
+  --font-en: "Merriweather", "Times New Roman", serif;
+  --font-ko: "MerriweatherText", "Noto Serif KR", serif;
+  --font-de: "Merriweather", "Times New Roman", serif;
+
+  --fs-base: 15px;
+  --lh-base: 1.6;
+  --lh-body: 1.75;
+
+  /* --- Color ------------------------------------------------------------ */
+  --c-bg: #ffffff;
+  --c-fg: #000000;
+  --c-muted: #c4c4c4;
+  --c-grid: #000000;
+  --c-row-bg: #000000;
+  --c-row-fg: #ffffff;
+
+  /* --- Grid system ----------------------------------------------------- */
+  --grid-cell: 36px;
+  --row-pad-x: 12px;
+
+  /* --- Top bar 여백 (격자 영역 밖이라 cell 배수일 필요 없음) ----------- */
+  --topbar-pad-y: 20px;
+}
+
+/* 반응형: cell 크기만 바뀌면 모든 spacing이 따라옴 */
+@media (max-width: 1366px) { :root { --grid-cell: 32px; } }
+@media (max-width: 1023px) { :root { --grid-cell: 28px; } }
+@media (max-width: 720px)  {
+  :root {
+    --grid-cell: 24px;
+    --fs-base: 14px;
+    --topbar-pad-y: 16px;
+  }
+}
+
+/* =========================================================================
+   Reset
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: 400; margin: 0; line-height: inherit; }
+p { margin: 0; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+button {
+  font: inherit; color: inherit; background: none; border: none;
+  padding: 0; cursor: pointer; letter-spacing: inherit;
+}
+img, video { display: block; max-width: 100%; height: auto; }
+
+/* =========================================================================
+   Base
+   ========================================================================= */
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-en);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--c-fg);
+  background-color: var(--c-bg);
+
+  /* 단어 중간에서 줄바꿈하지 않음 — 단어 전체가 다음 줄로.
+     - keep-all: 한국어를 단어 단위로 처리 (영/독은 원래 그렇게 동작)
+     - overflow-wrap: break-word: 한 단어가 컨테이너보다 길어 넘칠 때만 안전망으로 깨뜨림 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body[data-lang="ko"] {
+  font-family: var(--font-ko);
+  font-weight: 500;
+}
+
+/* =========================================================================
+   Layout containers
+   ========================================================================= */
+
+/* 상단 — 흰 배경, 격자 없음, 자기 콘텐츠 높이만큼 */
+.top-bar {
+  flex-shrink: 0;
+  background-color: var(--c-bg);
+  padding-top: var(--topbar-pad-y);
+  padding-bottom: calc(var(--topbar-pad-y) * 0.7);
+}
+
+/* 콘텐츠 — flex-grow:1 로 뷰포트 끝까지 채워서 격자가 항상 바닥까지 보이게.
+   격자가 (0,0)부터 시작하므로 첫 가로선이 .top-bar와의 자연스러운 경계선. */
+.main-area {
+  position: relative;
+  isolation: isolate;
+  flex-grow: 1;
+  padding-bottom: calc(var(--grid-cell) * 4);
+}
+
+/* 이미지 → 모눈 → 텍스트 카드 → 목록 순서. 모눈의 원점과 간격은 유지. */
+.main-area::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--c-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--c-grid) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.main-area > .container {
+  position: relative;
+  z-index: 3;
+}
+
+.project-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.project-preview-image-position {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.project-preview-image {
+  max-width: none;
+  animation: preview-turn 200s linear infinite;
+}
+
+.project-preview-text-position {
+  position: fixed;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  width: min(340px, calc(100vw - 48px));
+  transform: translate(-50%, -50%);
+  animation: preview-drift 18s ease-in-out infinite alternate;
+}
+
+.project-preview-text-fit {
+  transform: scale(var(--preview-text-scale, 1));
+}
+
+.project-preview-text {
+  background: var(--c-bg);
+  border: 1px solid var(--c-fg);
+  padding: 16px;
+  line-height: var(--lh-base);
+  animation: preview-turn 300s linear infinite reverse;
+}
+
+.project-preview[hidden],
+.project-preview-image-position[hidden],
+.project-preview-text-position[hidden] { display: none; }
+
+@keyframes preview-turn {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preview-drift {
+  from { transform: translate(-50%, -50%); }
+  to { transform: translate(calc(-50% + 6px), calc(-50% - 6px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-preview-image,
+  .project-preview-text-position,
+  .project-preview-text { animation: none; }
+}
+
+/* 블록 끝은 완전한 모눈선에 정렬. 창 끝의 부분 칸은 배경에서만 잘림. */
+.container {
+  width: 100%;
+  width: round(down, 100%, var(--grid-cell));
+  padding-left: var(--grid-cell);
+  padding-right: var(--grid-cell);
+}
+
+.top-bar .container { width: 100%; }
+
+/* =========================================================================
+   Header (.site-header)
+   네비와 필터 사이엔 별도 margin 없음 — 자연 line-height만 사용
+   ========================================================================= */
+
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--grid-cell);
+}
+
+.site-header .nav-left {
+  display: flex;
+  gap: calc(var(--grid-cell) * 1.2);
+}
+
+.site-header .nav-center {
+  display: flex;
+  gap: 4px;
+  justify-self: center;
+}
+
+.site-header .nav-right {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+/* 데스크탑: sub-header의 브랜드 숨김, site-header의 nav-right 표시 */
+.nav-brand { display: none; }
+
+.nav-link { color: var(--c-muted); transition: color 0.15s ease; }
+.nav-link.is-active,
+.nav-link:hover { color: var(--c-fg); }
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.lang-switch .sep { color: var(--c-muted); }
+.lang-btn { color: var(--c-muted); }
+.lang-btn.is-active,
+.lang-btn:hover { color: var(--c-fg); }
+
+/* =========================================================================
+   Sub-header
+   ========================================================================= */
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* 필터가 없는 페이지(Notes/Writings)에서도 한 줄 높이만큼 공간 유지 →
+     페이지 이동해도 상단 흰 구역의 높이가 일정 */
+  min-height: 1.6em;
+}
+
+.filter-list {
+  display: flex;
+  gap: calc(var(--grid-cell) * 0.7);
+  flex-wrap: wrap;
+}
+
+.filter-btn { color: var(--c-muted); }
+.filter-btn.is-active,
+.filter-btn:hover { color: var(--c-fg); }
+
+.index-link { color: var(--c-fg); }
+
+/* =========================================================================
+   검은 바 컴포넌트 — 목록(.list-row)과 상세 헤더(.project-header)가 공유
+   ========================================================================= */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-cell);
+  padding-top: var(--grid-cell);
+}
+
+.project-detail {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--grid-cell);
+}
+
+.list-row,
+.project-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--grid-cell);
+  min-height: var(--grid-cell);
+  padding: 0 var(--row-pad-x);
+  background-color: var(--c-row-bg);
+  color: var(--c-row-fg);
+}
+
+.list-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.list-row:hover { background-color: #1a1a1a; }
+
+.list-row .row-title,
+.project-header .row-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--c-row-fg);
+}
+
+.list-row .row-meta,
+.project-header .row-meta {
+  color: var(--c-row-fg);
+  text-align: right;
+  padding-right: var(--grid-cell);
+  white-space: nowrap;
+}
+
+.list-row .row-year,
+.project-header .row-year {
+  color: var(--c-row-fg);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+}
+
+/* 흰 콘텐츠 박스 — 검은 바 바로 아래, 외곽선이 격자 라인과 자연 align */
+.project-content {
+  background-color: var(--c-bg);
+  border: 1px solid var(--c-fg);
+  border-top: none;
+  padding: var(--grid-cell) var(--grid-cell) calc(var(--grid-cell) * 3);
+}
+
+/* 블록 사이 간격 (미디어 → 텍스트, 텍스트 → 미디어, 미디어 → 미디어 모두 동일) */
+.project-content > * + * {
+  margin-top: var(--grid-cell);
+}
+
+/* --- 미디어 ----------------------------------------------------------- */
+.media-row {
+  display: grid;
+  gap: var(--grid-cell);
+}
+
+.media-row[data-count="1"] { grid-template-columns: 1fr; }
+.media-row[data-count="2"] { grid-template-columns: 1fr 1fr; }
+.media-row[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
+
+.media-row .media-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+.media-row[data-count="1"] .media-item { aspect-ratio: 21 / 9; }
+
+.media-row .media-item img,
+.media-row .media-item video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* --- 텍스트 블록 (글-이미지-글 인터리브용) --------------------------- */
+.content-text {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  line-height: var(--lh-body);
+  /* 위/아래로 살짝 여유 — 이미지와 글 사이에 숨 쉴 공간 */
+  padding: calc(var(--grid-cell) * 0.5) 0;
+}
+
+.content-text p + p { margin-top: 1.4em; }
+
+/* =========================================================================
+   Notes — 텍스트 글타래 (시간순 추가)
+   - 각 노트는 흰 박스 + 검은 외곽선
+   - 텍스트 + 하이퍼링크만 지원
+   ========================================================================= */
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-cell);
+  padding-top: var(--grid-cell);
+}
+
+.note-date {
+  display: block;
+  font-size: 0.85em;
+  color: var(--c-muted);
+  padding: 0 var(--row-pad-x);
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.note-body {
+  background-color: var(--c-bg);
+  border: 1px solid var(--c-fg);
+  padding: calc(var(--grid-cell) * 0.5) calc(var(--grid-cell) * 0.65);
+  line-height: 1.6;
+}
+
+.note-body p + p { margin-top: 0.8em; }
+
+:where(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.note-body a {
+  color: var(--c-fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.note-body a:hover { text-decoration: none; }
+
+/* =========================================================================
+   State messages
+   ========================================================================= */
+
+.state-msg {
+  padding: calc(var(--grid-cell) * 2) 0;
+  text-align: center;
+  color: var(--c-muted);
+}
+
+/* =========================================================================
+   Responsive (mobile 미세 조정)
+   ========================================================================= */
+
+@media (max-width: 1023px) {
+  .site-header .nav-left,
+  .filter-list {
+    column-gap: 0.8em;
+    row-gap: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .top-bar {
+    padding-bottom: calc(var(--topbar-pad-y) * 0.625);
+  }
+
+  .top-bar .container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: var(--lh-base);
+  }
+
+  .site-header {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .site-header .nav-center {
+    justify-self: start;
+    gap: 0.2em;
+  }
+  .site-header .nav-right { display: none; }
+  .nav-brand { display: block; }
+  .site-header .nav-left {
+    flex-wrap: wrap;
+  }
+
+  .nav-link,
+  .filter-btn { white-space: nowrap; }
+
+  .sub-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .list-row,
+  .project-header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title year"
+      "meta meta";
+    height: auto;
+    min-height: calc(var(--grid-cell) * 2);
+    padding: 8px var(--row-pad-x);
+    gap: 0 var(--grid-cell);
+    line-height: var(--lh-base);
+    align-items: start;
+    align-content: center;
+  }
+
+  .list-row .row-title,
+  .project-header .row-title { grid-area: title; }
+
+  .list-row .row-year,
+  .project-header .row-year { grid-area: year; text-align: right; padding-right: 0; }
+
+  .list-row .row-meta,
+  .project-header .row-meta {
+    grid-area: meta;
+    text-align: left;
+    padding-right: 0;
+    opacity: 0.7;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .media-row[data-count="2"],
+  .media-row[data-count="3"] {
+    grid-template-columns: 1fr;
+  }
+
+  .content-text { max-width: 100%; }
+}
+
+/* =========================================================================
+   Print
+   ========================================================================= */
+
+@media print {
+  .main-area > .container { width: 100%; }
+  body { background: none; }
+  .main-area { background: none; }
+  .main-area::before, .project-preview, .project-preview-text-position { display: none; }
+  .list-row, .project-header {
+    background: none !important;
+    color: #000 !important;
+    border: 1px solid #000;
+  }
+  .row-title, .row-meta, .row-year { color: #000 !important; }
+}

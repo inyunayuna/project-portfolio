@@ -1,0 +1,77 @@
+{
+  "en": {
+    "brand": "Yuna, since 2023",
+    "index": "Index",
+    "loading": "Loading…",
+    "empty": "No items.",
+    "nav": {
+      "notes": "Notes",
+      "projects": "Work",
+      "research": "Writings"
+    },
+    "filters": {
+      "all": "All Types",
+      "graphic": "Graphic",
+      "editorial": "Editorial",
+      "web": "Web",
+      "product": "Product",
+      "workshop": "Workshop",
+      "research": "Research"
+    },
+    "error": {
+      "load": "Failed to load.",
+      "not_found": "Not found.",
+      "no_id": "No ID provided."
+    }
+  },
+  "ko": {
+    "brand": "Yuna, since 2023",
+    "index": "Index",
+    "loading": "불러오는 중…",
+    "empty": "표시할 항목이 없습니다.",
+    "nav": {
+      "notes": "짧은 말들,",
+      "projects": "만든 것들,",
+      "research": "글들."
+    },
+    "filters": {
+      "all": "전체",
+      "graphic": "그래픽",
+      "editorial": "편집",
+      "web": "웹",
+      "product": "프로덕트",
+      "workshop": "워크숍",
+      "research": "리서치"
+    },
+    "error": {
+      "load": "불러오기에 실패했습니다.",
+      "not_found": "찾을 수 없습니다.",
+      "no_id": "ID가 지정되지 않았습니다."
+    }
+  },
+  "de": {
+    "brand": "Yuna, since 2023",
+    "index": "Index",
+    "loading": "Laden…",
+    "empty": "Keine Einträge.",
+    "nav": {
+      "notes": "Notes",
+      "projects": "Work",
+      "research": "Texte"
+    },
+    "filters": {
+      "all": "Alle",
+      "graphic": "Grafik",
+      "editorial": "Editorial",
+      "web": "Web",
+      "product": "Produkt",
+      "workshop": "Workshop",
+      "research": "Forschung"
+    },
+    "error": {
+      "load": "Laden fehlgeschlagen.",
+      "not_found": "Nicht gefunden.",
+      "no_id": "Keine ID angegeben."
+    }
+  }
+}

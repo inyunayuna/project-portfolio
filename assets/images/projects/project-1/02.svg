@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 338" preserveAspectRatio="xMidYMid slice">
+  <rect width="600" height="338" fill="#111"/>
+  <g font-family="Merriweather, serif" text-anchor="middle">
+    <text x="300" y="170" fill="#777" font-size="20">02</text>
+    <text x="300" y="200" fill="#555" font-size="12">02.jpg</text>
+  </g>
+</svg>

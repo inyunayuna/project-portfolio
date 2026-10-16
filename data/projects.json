@@ -1,0 +1,202 @@
+[
+  {
+    "id": "project-5",
+    "year": 2026,
+    "categories": [
+      "graphic", "editorial"
+    ],
+    "title": {
+      "en": "Welcome Kit for HfK/Uni Bremen Digital Media 2026",
+      "ko": "HfK/Uni Bremen Digital Media 2026 신입생 웰컴 키트",
+      "de": "Welcome Kit für HfK/Uni Bremen Digital Media 2026"
+    },
+    "content": [
+      {
+        "type": "text",
+        "value": {
+          "en": "Project in process...",
+          "ko": "아직 작업 중 ...",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  }, 
+  {
+    "id": "project-4",
+    "year": 2026,
+    "categories": [
+      "graphic", "editorial"
+    ],
+    "title": {
+      "en": "Poster & Archive Zine for 《Baljin》",
+      "ko": "포스터 및 아카이브 북 《발진》 ",
+      "de": "Poster & Archive Zine for 《Baljin》"
+    },
+    "content": [
+      {
+        "type": "text",
+        "value": {
+          "en": "Project in process...",
+          "ko": "아직 작업 중 ...",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  },  
+  {
+    "id": "project-3",
+    "year": 2026,
+    "categories": [
+      "product",
+      "web"
+    ],
+    "title": {
+      "en": "Draftie",
+      "ko": "Draftie",
+      "de": "Draftie"
+    },
+    "content": [
+      {
+        "type": "media",
+        "items": [
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/01.svg",
+            "alt": ""
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "First paragraph of explanation. Goes here right under the hero image.\n\nA second paragraph can follow after a blank line.",
+          "ko": "첫 번째 단락. 히어로 이미지 바로 아래에 들어갑니다.\n\n빈 줄을 두고 두 번째 단락을 이어갈 수 있습니다.",
+          "de": "Erster Absatz unter dem Bild.\n\nWeiterer Absatz nach einer Leerzeile."
+        }
+      },
+      {
+        "type": "media",
+        "items": [
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/02.svg",
+            "alt": ""
+          },
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/03.svg",
+            "alt": ""
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "This project visualizes that transformation through an interactive web design. Users input a sentence directly on the site; once they press Enter, the text is absorbed into the existing background and accumulates in overlapping layers. The stacked sentences are perforated with spherical voids that mirror the floating particle forms drifting across the site.",
+          "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다.",
+          "de": "Dieses Projekt visualisiert diese Transformation durch ein interaktives Webdesign."
+        }
+      }
+    ]
+  },
+  {
+    "id": "project-2",
+    "year": 2026,
+    "categories": [
+      "product"
+    ],
+    "title": {
+      "en": "Teethplay",
+      "ko": "Teethplay",
+      "de": "Teethplay"
+    },
+    "content": [
+      {
+        "type": "media",
+        "items": [
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/01.svg",
+            "alt": ""
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "**Play music while brushing your teeth with family and friends.**\nThe angle, direction, and speed of your brushing become sound. Brush up and down to make melody. Move faster to alter the character of the sound. Simply open the app and choose a score, and your three minutes of brushing turns into a small band performance created together.\nWith Teethplay, a toothbrush can become a musical instrument at any moment. Fill your brushing routine with music.",
+          "ko": "가족들, 친구들과 함께 양치질을 하며 음악을 연주해보세요. 칫솔질의 각도, 방향, 속도는 그대로 소리가 됩니다. 위아래로 닦으면 음이 오르내리고, 빠르게 움직이면 소리가 달라집니다. 앱을 켜고 악보를 선택하면, 양치질하는 3분을 짧은 우리만의 밴드 공연으로 만들 수 있습니다. Teethplay를 통해 칫솔은 언제든지 악기가 됩니다. 양치질하는 시간을 음악으로 채워나가보세요.",
+          "de": "Project in process..."
+        }
+      },
+      {
+        "type": "media",
+        "items": [
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/02.svg",
+            "alt": ""
+          },
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/03.svg",
+            "alt": ""
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "**Motion Based Sound Generation**\nThe toothbrush detects its tilt, direction, and movement speed in real time, transforming them into pitch, timbre, and volume.\n\n**Score Mode**\nFollow a score stored in the app while brushing, and melodies designed around the rhythm of your movements will play back as you go. By the time you finish following the score, a three minute piece of music will have reached its finale.\n\n**Family Band**\nConnect multiple devices and each person's brushing becomes part of a shared harmony. Brush your teeth together with family and friends while performing as an ensemble.",
+          "ko": "**모션 기반 사운드 생성**\n칫솔의 기울기, 방향, 움직임 속도를 실시간으로 감지해 음높이, 음색, 음량으로 변환합니다.\n\n**스코어 모드**\n앱에 저장된 스코어에 맞춰 양치질을 수행하면 움직임의 리듬에 맞춰 설계된 멜로디가 재생됩니다. 악보를 따라 이를 닦다보면 어느덧 3분짜리 음악이 끝나있을 거예요.\n\n**패밀리 밴드**\n여러 기기를 연결하면 각자의 칫솔질이 화음으로 조합됩니다. 가족, 친구들과 함께 이를 닦으며 합주를 해보세요.",
+          "de": "Project in process..."
+        }
+      },
+      {
+        "type": "media",
+        "items": [
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/02.svg",
+            "alt": ""
+          },
+          {
+            "type": "image",
+            "src": "assets/images/projects/project-1/03.svg",
+            "alt": ""
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "Some three minutes feel endless. Brushing your teeth is something you are expected to do several times a day, every day, for three minutes at a time. It is easy to become bored or distracted. We check our phones, rush through the routine, or neglect the hard to reach areas.\n\nBut think about what happens when you play an instrument or listen to music. Within the structure of a score, you follow a set of movements for a set amount of time. As you do, the music unfolds and a complete piece gradually takes shape.\n\nCareful tooth brushing and musical performance may share more in common than they first appear. Both require precise actions performed according to a set of rules over a defined period of time. Teethplay began with the curiosity of bringing these two activities together. If brushing itself became a performance, could those same three minutes become something more enjoyable?",
+          "ko": "어떤 3분은 너무 길고, 어떤 3분은 너무 짧습니다. 양치질은 3분동안 매일, 몇 번씩 해야합니다. 쉽게 지루해지고, 귀찮아지죠. 그래서 딴짓을 하거나, 대충 끝내거나, 구석구석 닦지 않게 되는 등 소홀해지기 일쑤입니다.\n\n하지만 악기를 연주하거나 음악을 들을 땐 어떤가요? 악보라는 규칙 안에서 정해진 동작을 정해진 시간 동안 수행하다보면 음악이 진행되고, 한 곡이 완성됩니다.\n\n꼼꼼한 양치질과 완성된 음악 연주는 구조적으로 닮아있을지도 모릅니다. 규칙에 맞춰 정해진 시간동안 정확하게 동작을 수행해야 하죠. 이 둘을 겹쳐보면 어떨까 하는 호기심으로부터 Teethplay가 구상되었습니다. 칫솔질 자체가 연주가 된다면, 같은 3분이라도 더 즐거워지지 않을까요?",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  },
+  {
+    "id": "project-1",
+    "year": 2026,
+    "categories": [
+      "product"
+    ],
+    "title": {
+      "en": "Another Audience",
+      "ko": "Another Audience",
+      "de": "Another Audience"
+    },
+    "content": [
+      {
+        "type": "text",
+        "value": {
+          "en": "Project in process...",
+          "ko": "아직 작업 중 ...",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  }
+]

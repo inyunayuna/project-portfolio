@@ -1,0 +1,83 @@
+[
+ {
+    "id": "research-3",
+    "year": 2026,
+    "categories": ["research"],
+    "title": {
+      "en": "Echo bubbles",
+      "ko": "거품과 메아리",
+      "de": "Echo bubbles"
+    },
+    "content": [
+      {
+        "type": "text",
+        "value": {
+          "en": "Project in process...",
+          "ko": "아직 작업 중 ...",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  },
+  {
+    "id": "research-2",
+    "year": 2026,
+    "categories": ["research"],
+    "title": {
+      "en": "Letter to Discretezation",
+      "ko": "말들의 이산화, 이산화하는 낱자들",
+      "de": "Letter to Discretezation"
+    },
+    "content": [
+      {
+        "type": "text",
+        "value": {
+          "en": "Project in process...",
+          "ko": "아직 작업 중 ...",
+          "de": "Project in process..."
+        }
+      }
+    ]
+  },
+  {
+    "id": "research-1",
+    "year": 2025,
+    "categories": ["research"],
+    "title": {
+      "en": "Another Audience",
+      "ko": "Another Audience",
+      "de": "Another Audience"
+    },
+    "content": [
+      {
+        "type": "media",
+        "items": [
+          { "type": "image", "src": "assets/images/projects/project-1/01.svg", "alt": "" }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "First paragraph of explanation. Goes here right under the hero image.\n\nA second paragraph can follow after a blank line.",
+          "ko": "첫 번째 단락. 히어로 이미지 바로 아래에 들어갑니다.\n\n빈 줄을 두고 두 번째 단락을 이어갈 수 있습니다.",
+          "de": "Erster Absatz unter dem Bild.\n\nWeiterer Absatz nach einer Leerzeile."
+        }
+      },
+      {
+        "type": "media",
+        "items": [
+          { "type": "image", "src": "assets/images/projects/project-1/02.svg", "alt": "" },
+          { "type": "image", "src": "assets/images/projects/project-1/03.svg", "alt": "" }
+        ]
+      },
+      {
+        "type": "text",
+        "value": {
+          "en": "This project visualizes that transformation through an interactive web design. Users input a sentence directly on the site; once they press Enter, the text is absorbed into the existing background and accumulates in overlapping layers. The stacked sentences are perforated with spherical voids that mirror the floating particle forms drifting across the site.",
+          "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다.",
+          "de": "Dieses Projekt visualisiert diese Transformation durch ein interaktives Webdesign."
+        }
+      }
+    ]
+  }
+]
