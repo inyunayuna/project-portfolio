@@ -1,6 +1,7 @@
 import { subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
 import { escapeAttr, renderText, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
+import { alignRowsToGrid } from "./grid-alignment.js";
 
 export async function mountNotes({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -16,7 +17,11 @@ export async function mountNotes({ dataUrl, containerId }) {
     return;
   }
 
-  const render = () => renderNotes(container, items);
+  const align = alignRowsToGrid(container);
+  const render = () => {
+    renderNotes(container, items);
+    align();
+  };
   render();
   subscribe(render, ["lang"]);
 }

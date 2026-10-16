@@ -34,7 +34,7 @@ export function alignRowsToGrid(container) {
   const align = () => {
     const cell = parseFloat(getComputedStyle(container).getPropertyValue("--grid-cell"));
     if (!(cell > 0)) return;
-    const rows = [...container.querySelectorAll(".list-row, .project-header")];
+    const rows = [...container.querySelectorAll(".list-row, .project-header, .note-item")];
 
     // Read natural heights in one batch and restore snapped heights before paint.
     rows.forEach(row => row.style.removeProperty("min-height"));

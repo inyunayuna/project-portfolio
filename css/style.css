@@ -514,6 +514,10 @@ body[data-lang="ko"] {
   padding-top: var(--grid-cell);
 }
 
+.note-item {
+  display: grid;
+}
+
 .note-date {
   display: block;
   font-size: 0.85em;
@@ -523,8 +527,12 @@ body[data-lang="ko"] {
 }
 
 .note-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: var(--c-bg);
   border: 1px solid var(--c-fg);
+  margin: 0 -1px -1px 0;
   padding: 0.25em var(--row-pad-x);
   line-height: var(--lh-base);
 }
