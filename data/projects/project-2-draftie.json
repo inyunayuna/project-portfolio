@@ -20,7 +20,7 @@
       "type": "text",
       "value": {
         "en": "Draftie is an experimental product design project that combines a dedicated hardware controller, the Draftie Board, with a software writing editor. Users import AI-generated text through a browser extension, and the editor compares it with the evolving draft to identify retained word combinations and sentence structures. Sentence-level highlights reveal these traces, while a document-wide percentage, the screen background, and the board’s LEDs communicate the overall revision state. By encouraging users to revise the text in their own words until the highlights disappear, Draftie explores the conditions under which authorship takes shape in human–AI co-writing.",
-        "ko": "Draftie는 이러한 인간과 AI의 공동 집필(co-writing) 경험을 탐색하는 라이팅 에디터이자 실험적 프로덕트 디자인 프로젝트이다. 전용 하드웨어 스위치 보드인 ‘드래프티 보드’와 이에 연동된 앱으로 구성되며, 브라우저 확장 프로그램을 통해 AI가 생성한 텍스트를 가져온다. 에디터는 처음 가져온 원문과 현재 글을 비교해 어휘 조합과 문장 구조가 얼마나 남아 있는지 분석한다. 그 결과는 문장별 하이라이트, 문서 전체의 잔여 비율, 화면 배경과 보드의 LED로 나타난다. 사용자는 수정에 따라 달라지는 피드백을 보며 원문의 표현을 다시 선택하고 구성한다."
+        "ko": "Draftie는 인간과 AI의 공동 집필(co-writing) 경험을 탐색하는 라이팅 에디터이자 실험적 프로덕트 디자인 프로젝트이다. 전용 하드웨어 스위치 보드인 ‘드래프티 보드’와 이에 연동된 앱으로 구성되며, 브라우저 확장 프로그램을 통해 AI가 생성한 텍스트를 가져온다. 에디터는 처음 가져온 원문과 현재 글을 비교해 어휘 조합과 문장 구조가 얼마나 남아 있는지 분석한다. 그 결과는 문장별 하이라이트, 문서 전체의 잔여 비율, 화면 배경과 보드의 LED로 나타난다. 사용자는 수정에 따라 달라지는 피드백을 보며 원문의 표현을 다시 선택하고 구성한다."
       }
     },
     {
@@ -41,8 +41,8 @@
     {
       "type": "text",
       "value": {
-        "en": "Today, generative AI participates throughout this process in different ways. People edit sentences written by AI, and AI reviews texts that people have revised. From technical reports and academic writing to journalism, writing is becoming a collaborative activity in which human and AI linguistic choices overlap. Authorship is no longer a given within this process. To make a collaboratively produced text their own, people revise content that does not reflect their intentions, add sentences that express their voice, and reconsider its wording and structure. Revision becomes both a decision of refining a text and a means of maintaining, reclaiming, and defending authorship.",
-        "ko": "오늘날 생성형 AI는 이 과정의 곳곳에 참여한다. AI가 작성한 문장을 사람이 편집하고, 사람이 고친 글을 다시 AI가 검토한다. 기술 보고서와 학술적 글쓰기부터 저널리즘에 이르기까지, 글쓰기는 인간과 AI의 언어적 선택이 겹쳐지는 공동 작업이 되고 있다. 그 안에서 저자성은 더 이상 당연하게 주어지지 않는다. 사람들은 함께 만들어진 글을 자신의 것으로 만들기 위해 의도와 맞지 않는 내용을 고치고, 자신의 말투가 드러나는 문장을 덧붙이며, 표현과 구조를 다시 선택한다. 수정은 글을 다듬는 작업이자 저자성을 유지하고 회복하며 방어하는 과정이 된다."
+        "en": "Today, generative AI participates throughout writing process in different ways. People edit sentences written by AI, and AI reviews texts that people have revised. From technical reports and academic writing to journalism, writing is becoming a collaborative activity in which human and AI linguistic choices overlap. Authorship is no longer a given within this process. To make a collaboratively produced text their own, people revise content that does not reflect their intentions, add sentences that express their voice, and reconsider its wording and structure. Revision becomes both a decision of refining a text and a means of maintaining, reclaiming, and defending authorship.",
+        "ko": "오늘날 생성형 AI는 글쓰기 과정의 곳곳에 참여하고 있다. AI가 작성한 문장을 사람이 편집하고, 사람이 고친 글을 다시 AI가 검토한다. 기술 보고서와 학술적 글쓰기부터 저널리즘에 이르기까지, 글쓰기는 인간과 AI의 언어적 선택이 겹쳐지는 공동 작업이 되고 있다. 그 안에서 저자성은 더 이상 당연하게 주어지지 않는다. 사람들은 함께 만들어진 글을 자신의 것으로 만들기 위해 의도와 맞지 않는 내용을 고치고, 자신의 말투가 드러나는 문장을 덧붙이며, 표현과 구조를 다시 선택한다. 이런 상황 속에서 수정은 글을 다듬는 작업이자 저자성을 유지하고 회복하며 방어하는 과정이 된다."
       }
     },
     {

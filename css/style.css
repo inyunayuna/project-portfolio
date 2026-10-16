@@ -564,7 +564,8 @@ body[data-lang="ko"] {
 
 @media (max-width: 720px) {
   .main-area::before {
-    border-bottom: 1px solid var(--c-grid);
+    bottom: auto;
+    height: calc(round(up, 100%, var(--grid-cell)) + 1px);
   }
 
   .top-bar {
