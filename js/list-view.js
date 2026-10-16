@@ -57,9 +57,9 @@ function rowHTML(item, detailHref) {
   const year = item.year ?? "";
 
   return `
-    <li class="list-row" data-id="${escapeAttr(item.id)}">
+    <li class="list-row${categories ? "" : " without-categories"}" data-id="${escapeAttr(item.id)}">
       <a class="row-title" href="${escapeAttr(detailHref(item.id))}">${title}</a>
-      <span class="row-meta">${escapeHTML(categories)}</span>
+      ${categories ? `<span class="row-meta">${escapeHTML(categories)}</span>` : ""}
       <span class="row-year">${escapeHTML(String(year))}</span>
     </li>
   `;

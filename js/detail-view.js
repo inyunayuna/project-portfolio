@@ -53,9 +53,9 @@ function renderDetail(container, item) {
     .join("");
 
   container.innerHTML = `
-    <header class="project-header">
+    <header class="project-header${categories ? "" : " without-categories"}">
       <h1 class="row-title">${title}</h1>
-      <span class="row-meta">${escapeHTML(categories)}</span>
+      ${categories ? `<span class="row-meta">${escapeHTML(categories)}</span>` : ""}
       <span class="row-year">${escapeHTML(String(year))}</span>
     </header>
     ${blocksHTML ? `<div class="project-content">${blocksHTML}</div>` : ""}
@@ -84,7 +84,10 @@ function embedBlockHTML(block) {
     && Number.isFinite(Number(match[1])) && Number.isFinite(Number(match[2]))
     ? `${Number(match[1])} / ${Number(match[2])}` : "16 / 9";
 
-  return `<div class="content-embed" style="--embed-ratio: ${ratio}">
+  const width = Number.isFinite(block.maxWidth) && block.maxWidth > 0
+    ? Math.min(block.maxWidth, 760) : 760;
+
+  return `<div class="content-embed" style="--embed-ratio: ${ratio}; --embed-max-width: ${width}px">
       <iframe src="${escapeAttr(url.href)}"
               title="${escapeAttr(pickLang(block.title) || t("embed.title"))}"
               loading="lazy"

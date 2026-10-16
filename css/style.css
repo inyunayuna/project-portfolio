@@ -109,6 +109,7 @@ body {
 body[data-lang="ko"] {
   font-family: var(--font-ko);
   font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 /* =========================================================================
@@ -328,6 +329,11 @@ body[data-lang="ko"] {
   transition: background-color 0.15s ease;
 }
 
+.list-row.without-categories,
+.project-header.without-categories {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
 .list-row:hover { background-color: #1a1a1a; }
 
 .list-row .row-title,
@@ -387,7 +393,7 @@ body[data-lang="ko"] {
 
 .content-embed {
   width: 100%;
-  max-width: 760px;
+  max-width: var(--embed-max-width, 760px);
   margin-left: auto;
   margin-right: auto;
   aspect-ratio: var(--embed-ratio, 16 / 9);
@@ -655,6 +661,11 @@ body[data-lang="ko"] {
     line-height: var(--lh-base);
     align-items: start;
     align-content: center;
+  }
+
+  .list-row.without-categories,
+  .project-header.without-categories {
+    grid-template-areas: "title year";
   }
 
   .list-row .row-title,

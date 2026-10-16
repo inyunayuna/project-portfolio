@@ -38,7 +38,7 @@ portfolio/
 │   │   ├── project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
 │   │   ├── project-2-draftie.json  ← Draftie
 │   │   └── project-1-another-audience.json  ← Another Audience
-│   ├── writings.json   ← Writings 순서·제목·연도·태그·본문 파일 경로
+│   ├── writings.json   ← Writings 순서·제목·연도·본문 파일 경로
 │   ├── writings/       ← Writings 항목별 본문 (id + content)
 │   │   └── writings-1-another-audience.json
 │   └── notes.json      ← 노트 목록
@@ -145,6 +145,7 @@ assets/images/projects/project-4/
 - 일반 영상 공유 페이지 주소 대신 **플레이어 임베드 주소**를 사용합니다. HTML 태그나 별도 플레이어 스크립트는 JSON에 넣지 않습니다.
 - `title`은 문자열 또는 `{ "en": "...", "ko": "..." }` 형식입니다.
 - `aspectRatio`를 생략하면 `16 / 9`입니다. 세로 영상은 `9 / 16`, 정사각형은 `1 / 1`로 지정합니다.
+- 특정 영상만 작게 표시하려면 `"maxWidth": 480`처럼 최대 너비(px)를 지정합니다. 생략하면 760px이며 좁은 화면에서는 화면에 맞춰 줄어듭니다.
 - 영상은 독립된 `embed` 블록으로 추가합니다. `media.items`에는 이미지만 넣습니다.
 - 호버용 썸네일이 필요하면 `data/projects.json` 또는 `data/writings.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
 
@@ -163,13 +164,12 @@ assets/images/projects/project-4/
 
 프로젝트와 같은 방식으로 목록 정보와 본문을 나눕니다.
 
-1. `data/writings.json`에는 목록용 제목·연도·태그·본문 파일 경로만 추가합니다. 이 파일에 `content` 본문을 복사하지 않습니다. 배열 순서가 표시 순서입니다.
+1. `data/writings.json`에는 목록용 제목·연도·본문 파일 경로만 추가합니다. Writings는 태그를 사용하지 않습니다. 이 파일에 `content` 본문을 복사하지 않습니다. 배열 순서가 표시 순서입니다.
 
 ```json
 {
   "id": "writings-2",
   "year": 2026,
-  "categories": ["research"],
   "title": {
     "en": "My New Essay",
     "ko": "새 글"
@@ -310,7 +310,7 @@ npx serve .
 `data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-2-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
 
 **Q. Writings 본문을 수정하려면 어디를 열어요?**
-`data/writings.json`의 `contentFile`에 지정된 `data/writings/` 안의 파일을 엽니다. 제목·연도·태그·순서는 목록 파일에서 수정합니다.
+`data/writings.json`의 `contentFile`에 지정된 `data/writings/` 안의 파일을 엽니다. 제목·연도·순서는 목록 파일에서 수정합니다.
 
 **Q. 디자인 그리드 / 행 높이를 바꾸고 싶어요**
 `--grid-cell`을 수정하면 해당 breakpoint의 정사각형 모눈·행 높이·여백이 함께 바뀝니다. 블록 끝은 모눈선에 맞추며, 창 끝의 부분 칸은 배경에서 자연스럽게 잘립니다.

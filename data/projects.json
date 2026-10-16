@@ -16,8 +16,8 @@
     "id": "project-2",
     "year": 2026,
     "categories": [
-      "web",
-      "product"
+      "product",
+      "research"
     ],
     "title": {
       "en": "Draftie",
@@ -29,7 +29,6 @@
     "id": "project-1",
     "year": 2026,
     "categories": [
-      "web",
       "installation",
       "research"
     ],
