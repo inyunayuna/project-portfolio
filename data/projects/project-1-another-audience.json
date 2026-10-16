@@ -22,14 +22,14 @@
       "type": "text",
       "value": {
         "en": "Another Audience is a research project with installation that questions how artificial intelligence reads, misunderstands, and rewrites one person’s experiences of film. I trained a local LLM on my film diary, which I have kept since childhood, to imitate my writing style. The result was a fake diary that resembled my actual experiences yet diverged from them.",
-        "ko": "Another Audience는 인공지능이 한 사람의 영화 관람 경험을 어떻게 읽고, 오해하고, 다시 쓰는지 질문하는 리서치 프로젝트이자 설치 작업이다. 어린 시절부터 써온 나의 영화 감상 일기를 로컬 LLM에 학습시켜 생성형 AI 모델로 하여금 그 문체를 모방하도록 하였다. 그 결과 실제 경험과 닮았지만 어긋나는 가짜 일기가 만들어졌다."
+        "ko": "Another Audience는 인공지능이 한 사람의 영화 관람 경험을 어떻게 읽고, 오해하고, 다시 쓰는지 질문하는 리서치 프로젝트이자 설치 작업이다. 어린 시절부터 써온 나의 영화 감상 일기를 로컬 LLM에 학습시켜 생성형 AI 모델로 하여금 그 문체를 모방하도록 하였다. 그렇게 실제 경험과 닮은 듯 그렇지 않은 듯 어긋나있는 '가짜 일기'가 완성되었다."
       }
     },
     {
       "type": "text",
       "value": {
         "en": "Two monitors in the exhibition play an edited video of me manually retyping this fake diary. On the wall, a projection shows the LLM endlessly generating fake film reviews in real time, based on keywords it extracts from the diary. Amid an artificially constructed soundscape of breathing, rustling snack bags, typing, and the hum of a projector fan, this entire system that reads, misunderstands, and rewrites a person becomes another audience.",
-        "ko": "전시장에 설치된 두 대의 모니터에서는 이 가짜 일기를 다시 손으로 타이핑하는 과정을 편집한 비디오가 재생된다. 벽면에는 LLM이 일기에서 추출한 키워드를 바탕으로 가짜 영화 리뷰를 실시간으로 끝없이 생성하는 모습이 투사된다. 숨소리, 과자 봉지 소리, 타이핑 소리, 영사기 팬이 돌아가는 소리 등이 편집된 인위적인 소음 속에서 한 사람을 읽고, 오해하고, 다시 쓰는 이 시스템 전체는 또 하나의 관객이 된다."
+        "ko": "전시장에 설치된 두 대의 모니터에는 이 가짜 일기를 다시 손으로 타이핑하는 과정을 편집한 비디오가 재생된다. 벽면에는 LLM이 일기에서 추출한 키워드를 바탕으로 가짜 영화 리뷰를 실시간으로 끝없이 생성하는 모습이 투사된다. 숨소리, 과자 봉지 소리, 타이핑 소리, 영사기 팬이 돌아가는 소리 등이 편집된 인위적인 소음 속에서 한 사람을 읽고, 오해하고, 다시 쓰는 이 시스템 전체가 전시 공간 속에서 또 하나의 관객이 된다."
       }
     },
      {
