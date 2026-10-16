@@ -1,6 +1,6 @@
 import { getState, subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
-import { escapeHTML, escapeAttr, fetchJSON } from "./utils.js";
+import { renderText, escapeAttr, fetchJSON } from "./utils.js";
 import { alignRowsToGrid } from "./grid-alignment.js";
 import { mountProjectPreview } from "./project-preview.js";
 
@@ -20,7 +20,7 @@ export async function mountList({ dataUrl, containerId, detailHref, useFilter = 
     items = await fetchJSON(dataUrl);
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<li class="state-msg">${t("error.load")}</li>`;
+    container.innerHTML = `<li class="state-msg">${renderText(t("error.load"))}</li>`;
     return;
   }
 
@@ -44,7 +44,7 @@ function renderList(container, items, detailHref, useFilter) {
   });
 
   if (!filtered.length) {
-    container.innerHTML = `<li class="state-msg">${t("empty")}</li>`;
+    container.innerHTML = `<li class="state-msg">${renderText(t("empty"))}</li>`;
     return;
   }
 
@@ -52,15 +52,15 @@ function renderList(container, items, detailHref, useFilter) {
 }
 
 function rowHTML(item, detailHref) {
-  const title = escapeHTML(pickLang(item.title));
+  const title = renderText(pickLang(item.title));
   const categories = (item.categories || []).map(c => t("filters." + c)).join(", ");
   const year = item.year ?? "";
 
   return `
     <li class="list-row${categories ? "" : " without-categories"}" data-id="${escapeAttr(item.id)}">
       <a class="row-title" href="${escapeAttr(detailHref(item.id))}">${title}</a>
-      ${categories ? `<span class="row-meta">${escapeHTML(categories)}</span>` : ""}
-      <span class="row-year">${escapeHTML(String(year))}</span>
+      ${categories ? `<span class="row-meta">${renderText(categories)}</span>` : ""}
+      <span class="row-year">${renderText(year)}</span>
     </li>
   `;
 }

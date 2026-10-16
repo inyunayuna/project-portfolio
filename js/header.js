@@ -1,5 +1,6 @@
 import { FILTERS, LANGUAGES, getState, setState, subscribe } from "./state.js";
 import { t } from "./i18n.js";
+import { renderText } from "./utils.js";
 
 // 배열: sub-header에 필터 버튼 표시 / null: 브랜드만 표시
 const FILTERS_BY_PAGE = {
@@ -62,9 +63,9 @@ function renderHeader() {
 
   el.innerHTML = `
     <div class="nav-left">
-      <a class="nav-link ${activeTab === "notes"     ? "is-active" : ""}" href="notes.html">${t("nav.notes")}</a>
-      <a class="nav-link ${activeTab === "projects"  ? "is-active" : ""}" href="index.html">${t("nav.projects")}</a>
-      <a class="nav-link ${activeTab === "writings"  ? "is-active" : ""}" href="writings.html">${t("nav.writings")}</a>
+      <a class="nav-link ${activeTab === "notes"     ? "is-active" : ""}" href="notes.html">${renderText(t("nav.notes"))}</a>
+      <a class="nav-link ${activeTab === "projects"  ? "is-active" : ""}" href="index.html">${renderText(t("nav.projects"))}</a>
+      <a class="nav-link ${activeTab === "writings"  ? "is-active" : ""}" href="writings.html">${renderText(t("nav.writings"))}</a>
     </div>
 
     <div class="nav-center lang-switch" role="group" aria-label="Language">
@@ -80,7 +81,7 @@ function renderHeader() {
       `).join("")}
     </div>
 
-    <div class="nav-right">${t("brand")}</div>
+    <div class="nav-right">${renderText(t("brand"))}</div>
   `;
 
   el.querySelectorAll(".lang-btn").forEach(btn => {
@@ -95,7 +96,7 @@ function renderSubHeader() {
   const filterList = FILTERS_BY_PAGE[pageToTab()];
 
   if (!filterList) {
-    el.innerHTML = `<span class="nav-brand">${t("brand")}</span>`;
+    el.innerHTML = `<span class="nav-brand">${renderText(t("brand"))}</span>`;
     return;
   }
 
@@ -109,12 +110,12 @@ function renderSubHeader() {
                 class="filter-btn ${f === filter ? "is-active" : ""}"
                 data-filter="${f}"
                 aria-pressed="${f === filter}">
-          ${t("filters." + f)}
+          ${renderText(t("filters." + f))}
         </button>
       `).join("")}
     </div>
-    <span class="nav-brand">${t("brand")}</span>
-    <a class="index-link" href="${goToList}">${t("index")}</a>
+    <span class="nav-brand">${renderText(t("brand"))}</span>
+    <a class="index-link" href="${goToList}">${renderText(t("index"))}</a>
   `;
 
   el.querySelectorAll(".filter-btn").forEach(btn => {

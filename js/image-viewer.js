@@ -1,4 +1,5 @@
 import { t } from "./i18n.js";
+import { renderText } from "./utils.js";
 
 export function mountImageViewer(container) {
   let dialog;
@@ -45,7 +46,7 @@ export function mountImageViewer(container) {
     previousButton.disabled = index === 0;
     nextButton.disabled = index === gallery.length - 1;
     previousButton.hidden = nextButton.hidden = gallery.length < 2;
-    message.textContent = t("loading");
+    message.innerHTML = renderText(t("loading"));
     message.hidden = false;
     image.hidden = true;
     image.alt = gallery[index].alt;
@@ -139,7 +140,7 @@ export function mountImageViewer(container) {
     });
     image.addEventListener("error", () => {
       if (!dialog.open) return;
-      message.textContent = t("image.error");
+      message.innerHTML = renderText(t("image.error"));
       message.hidden = false;
       image.hidden = true;
     });

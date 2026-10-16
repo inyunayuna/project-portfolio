@@ -109,6 +109,10 @@ body {
 body[data-lang="ko"] {
   font-family: var(--font-ko);
   font-weight: 500;
+}
+
+/* UI 언어와 관계없이 실제 한글에만 자간 보정. */
+.hangul {
   letter-spacing: -0.02em;
 }
 

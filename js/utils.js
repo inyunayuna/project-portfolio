@@ -9,6 +9,11 @@ export function escapeHTML(s) {
 
 export const escapeAttr = escapeHTML;
 
+// Apply Korean tracking to Hangul runs only; keep attributes and Latin text intact.
+export function renderText(value) {
+  return escapeHTML(value).replace(/\p{Script=Hangul}+/gu, '<span class="hangul">$&</span>');
+}
+
 export async function fetchJSON(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed: ${res.status}`);
@@ -24,7 +29,7 @@ export function splitParagraphs(raw) {
 
 // Parse links before escaping so query-string ampersands remain intact.
 export function renderInline(text) {
-  const formatText = value => escapeHTML(value)
+  const formatText = value => renderText(value)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\n/g, "<br>");
   const links = /\[([^\]]+)\]\(([^)]+)\)/g;

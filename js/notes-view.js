@@ -1,6 +1,6 @@
 import { subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
-import { escapeHTML, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
+import { escapeAttr, renderText, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
 
 export async function mountNotes({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -12,7 +12,7 @@ export async function mountNotes({ dataUrl, containerId }) {
     if (!Array.isArray(items)) throw new Error("Notes data must be an array");
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<li class="state-msg">${t("error.load")}</li>`;
+    container.innerHTML = `<li class="state-msg">${renderText(t("error.load"))}</li>`;
     return;
   }
 
@@ -23,7 +23,7 @@ export async function mountNotes({ dataUrl, containerId }) {
 
 function renderNotes(container, items) {
   if (!items.length) {
-    container.innerHTML = `<li class="state-msg">${t("empty")}</li>`;
+    container.innerHTML = `<li class="state-msg">${renderText(t("empty"))}</li>`;
     return;
   }
   // Append new notes to the JSON; display the newest block first.
@@ -41,7 +41,7 @@ function noteHTML(item) {
   return `
     <li class="note-item">
       <article class="note-body">
-        ${date ? `<time class="note-date" datetime="${escapeHTML(date)}">${escapeHTML(date)}</time>` : ""}
+        ${date ? `<time class="note-date" datetime="${escapeAttr(date)}">${renderText(date)}</time>` : ""}
         ${paragraphs}
       </article>
     </li>

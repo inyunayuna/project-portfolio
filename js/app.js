@@ -1,6 +1,7 @@
 import { loadUI } from "./i18n.js";
 import { mountHeader } from "./header.js";
 import { mountGridAlignment } from "./grid-alignment.js";
+import { renderText } from "./utils.js";
 
 const VIEWS = {
   projects: "./list-view.js",
@@ -64,7 +65,7 @@ function start() {
   boot().catch(err => {
     console.error("[app] Failed to start:", err);
     document.querySelectorAll('[data-i18n="loading"]').forEach(el => {
-      el.textContent = "Failed to load. Please reload. / 불러오기에 실패했습니다.";
+      el.innerHTML = renderText("Failed to load. Please reload. / 불러오기에 실패했습니다.");
     });
   });
 }

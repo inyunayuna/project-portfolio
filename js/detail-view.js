@@ -1,6 +1,6 @@
 import { subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
-import { escapeHTML, escapeAttr, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
+import { renderText, escapeAttr, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
 import { alignRowsToGrid } from "./grid-alignment.js";
 import { mountImageViewer } from "./image-viewer.js";
 import { loadProjectContent } from "./project-data.js";
@@ -11,7 +11,7 @@ export async function mountDetail({ dataUrl, containerId }) {
 
   const id = new URLSearchParams(window.location.search).get("id");
   if (!id) {
-    container.innerHTML = `<p class="state-msg">${t("error.no_id")}</p>`;
+    container.innerHTML = `<p class="state-msg">${renderText(t("error.no_id"))}</p>`;
     return;
   }
 
@@ -22,12 +22,12 @@ export async function mountDetail({ dataUrl, containerId }) {
     item = entry ? await loadProjectContent(entry) : null;
   } catch (err) {
     console.error(err);
-    container.innerHTML = `<p class="state-msg">${t("error.load")}</p>`;
+    container.innerHTML = `<p class="state-msg">${renderText(t("error.load"))}</p>`;
     return;
   }
 
   if (!item) {
-    container.innerHTML = `<p class="state-msg">${t("error.not_found")}</p>`;
+    container.innerHTML = `<p class="state-msg">${renderText(t("error.not_found"))}</p>`;
     return;
   }
 
@@ -43,7 +43,7 @@ export async function mountDetail({ dataUrl, containerId }) {
 }
 
 function renderDetail(container, item) {
-  const title = escapeHTML(pickLang(item.title));
+  const title = renderText(pickLang(item.title));
   const categories = (item.categories || []).map(c => t("filters." + c)).join(", ");
   const year = item.year ?? "";
 
@@ -55,8 +55,8 @@ function renderDetail(container, item) {
   container.innerHTML = `
     <header class="project-header${categories ? "" : " without-categories"}">
       <h1 class="row-title">${title}</h1>
-      ${categories ? `<span class="row-meta">${escapeHTML(categories)}</span>` : ""}
-      <span class="row-year">${escapeHTML(String(year))}</span>
+      ${categories ? `<span class="row-meta">${renderText(categories)}</span>` : ""}
+      <span class="row-year">${renderText(year)}</span>
     </header>
     ${blocksHTML ? `<div class="project-content">${blocksHTML}</div>` : ""}
   `;
