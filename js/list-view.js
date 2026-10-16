@@ -25,7 +25,7 @@ export async function mountList({ dataUrl, containerId, detailHref, useFilter = 
   }
 
   const align = alignRowsToGrid(container);
-  const hidePreview = useFilter ? mountProjectPreview(container, items) : () => {};
+  const hidePreview = mountProjectPreview(container, items);
   const render = () => {
     hidePreview();
     renderList(container, items, detailHref, useFilter);

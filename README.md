@@ -146,7 +146,7 @@ assets/images/projects/project-4/
 - `title`은 문자열 또는 `{ "en": "...", "ko": "..." }` 형식입니다.
 - `aspectRatio`를 생략하면 `16 / 9`입니다. 세로 영상은 `9 / 16`, 정사각형은 `1 / 1`로 지정합니다.
 - 영상은 독립된 `embed` 블록으로 추가합니다. `media.items`에는 이미지만 넣습니다.
-- 호버용 썸네일이 필요하면 `data/projects.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
+- 호버용 썸네일이 필요하면 `data/projects.json` 또는 `data/research.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
 
 #### `categories` 값
 `graphic` · `editorial` · `web` · `product` · `workshop` · `installation` · `research`
@@ -337,7 +337,7 @@ npx serve .
 - Notes는 JSON 배열의 마지막 항목부터 보여 새 블록이 위로 쌓입니다. 날짜는 블록 안에 표시하고, 블록 사이 간격은 모눈 한 칸으로 유지합니다.
 - Notes와 상세 본문은 타이핑 지연 없이 즉시 표시합니다.
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
-- Work·Writings 목록은 각각 가벼운 `data/projects.json`·`data/research.json`만 불러옵니다. 항목별 본문은 상세 페이지 진입 시, Work 호버 설명은 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
+- Work·Writings 목록은 각각 `data/projects.json`·`data/research.json`을 불러옵니다. `contentFile`로 분리한 본문은 상세 페이지 진입 또는 목록 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
 - Writings / 글들. 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
@@ -353,12 +353,12 @@ npx serve .
 - `js/grid-alignment.js`가 너비 변경과 폰트 로딩 시 화면을 그리기 전에 정렬합니다. 별도 프레임의 높이 보정과 블록별 ResizeObserver는 사용하지 않습니다.
 - 모눈 너비를 계산하거나 분배하는 JavaScript와 빈 우측 띠를 만들던 scrollbar-gutter 설정은 사용하지 않습니다.
 
-### Work 호버 썸네일
+### Work·Writings 호버 썸네일
 
-프로젝트에 호버하거나 제목 링크에 키보드 포커스를 주면 화면 중앙에 이미지가 표시되고 첫 문단은 흰색 카드로 함께 표시됩니다. 레이어 순서는 이미지 → 모눈 → 텍스트 카드 → 프로젝트 목록입니다.
+프로젝트나 Writings 글에 호버하거나 제목 링크에 키보드 포커스를 주면 화면 중앙에 이미지가 표시되고 첫 문단은 흰색 카드로 함께 표시됩니다. 두 목록은 같은 회전·이동 효과를 사용하며, 레이어 순서는 이미지 → 모눈 → 텍스트 카드 → 목록입니다.
 
-- 기본값: 프로젝트별 본문 파일의 `content`에 있는 첫 이미지. 설명 카드는 같은 파일의 첫 텍스트 문단을 사용합니다.
-- 별도 지정: `data/projects.json`의 해당 목록 항목에 `"thumbnail": "assets/images/projects/my-project/thumbnail.webp"`를 추가합니다.
+- 기본값: 각 항목의 `content`에 있는 첫 이미지. 설명 카드는 첫 텍스트 문단을 사용하며, `contentFile`이 있으면 해당 본문 파일에서 읽습니다.
+- 별도 지정: `data/projects.json` 또는 `data/research.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 추가합니다.
 - 이미지가 없는 프로젝트도 첫 문단이 있으면 텍스트 카드만 표시합니다.
 - 썸네일은 호버할 때만 불러오며, 화면 가로·세로의 65%와 최대 840×640px 안에서 원본 비율을 유지합니다. 터치 입력에는 표시하지 않습니다.
 
