@@ -563,6 +563,10 @@ body[data-lang="ko"] {
 }
 
 @media (max-width: 720px) {
+  .main-area::before {
+    border-bottom: 1px solid var(--c-grid);
+  }
+
   .top-bar {
     padding-bottom: calc(var(--topbar-pad-y) * 0.625);
   }
