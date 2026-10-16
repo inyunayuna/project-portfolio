@@ -35,9 +35,8 @@ portfolio/
 │   ├── ui.json         ← UI 텍스트 번역 (네비, 필터 라벨 등)
 │   ├── projects.json   ← 프로젝트 순서·제목·연도·태그·본문 파일 경로
 │   ├── projects/       ← 프로젝트별 긴 본문 (id + content)
-│   │   ├── project-4-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
-│   │   ├── project-3-draftie.json  ← Draftie
-│   │   ├── project-2-teethplay.json  ← Teethplay
+│   │   ├── project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
+│   │   ├── project-2-draftie.json  ← Draftie
 │   │   └── project-1-another-audience.json  ← Another Audience
 │   ├── research.json   ← Writings 목록 (기존 주소 유지)
 │   └── notes.json      ← 노트 목록
@@ -54,7 +53,7 @@ portfolio/
 
 ### ① 이미지 업로드
 ```
-assets/images/projects/project-5/
+assets/images/projects/project-4/
   ├── 01.jpg
   ├── 02.jpg
   └── 03.jpg
@@ -69,31 +68,31 @@ assets/images/projects/project-5/
 
 ```json
 {
-  "id": "project-5",
+  "id": "project-4",
   "year": 2026,
   "categories": ["graphic", "web"],
   "title": {
     "en": "My New Project",
     "ko": "내 새 프로젝트"
   },
-  "contentFile": "data/projects/project-5-my-new-project.json"
+  "contentFile": "data/projects/project-4-my-new-project.json"
 }
 ```
 
-### ③ `data/projects/project-5-my-new-project.json`에 본문 작성
+### ③ `data/projects/project-4-my-new-project.json`에 본문 작성
 
-파일명은 `<id>-<영문 제목을 소문자·하이픈으로 정리한 이름>.json` 형식입니다. 예: `project-3-draftie.json`. 파일명을 바꾸면 목록의 `contentFile`도 함께 수정합니다.
+파일명은 `<id>-<영문 제목을 소문자·하이픈으로 정리한 이름>.json` 형식입니다. 예: `project-2-draftie.json`. 파일명을 바꾸면 목록의 `contentFile`도 함께 수정합니다.
 
 프로젝트별 파일은 `id`와 `content`만 담습니다. `id`는 목록의 값과 일치해야 합니다. 기존 글의 긴 설명·이미지·영상 순서는 이 파일에서 수정합니다.
 
 ```json
 {
-  "id": "project-5",
+  "id": "project-4",
   "content": [
     {
       "type": "media",
       "items": [
-        { "type": "image", "src": "assets/images/projects/project-5/01.jpg", "alt": "표지" }
+        { "type": "image", "src": "assets/images/projects/project-4/01.jpg", "alt": "표지" }
       ]
     },
     {
@@ -270,7 +269,7 @@ npx serve .
 네, `content` 배열에 `"type": "text"` 블록만 넣으면 됩니다.
 
 **Q. 프로젝트 설명을 수정하려면 어디를 열어요?**
-`data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-3-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
+`data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-2-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
 
 **Q. 디자인 그리드 / 행 높이를 바꾸고 싶어요**
 `--grid-cell`을 수정하면 해당 breakpoint의 정사각형 모눈·행 높이·여백이 함께 바뀝니다. 블록 끝은 모눈선에 맞추며, 창 끝의 부분 칸은 배경에서 자연스럽게 잘립니다.

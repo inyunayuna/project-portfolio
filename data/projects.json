@@ -1,6 +1,6 @@
 [
   {
-    "id": "project-4",
+    "id": "project-3",
     "year": 2026,
     "categories": [
       "graphic",
@@ -10,10 +10,10 @@
       "en": "Welcome Kit for HfK/Uni Bremen Digital Media 2026",
       "ko": "HfK/Uni Bremen Digital Media 2026 신입생 웰컴 키트"
     },
-    "contentFile": "data/projects/project-4-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json"
+    "contentFile": "data/projects/project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json"
   },
   {
-    "id": "project-3",
+    "id": "project-2",
     "year": 2026,
     "categories": [
       "web",
@@ -23,19 +23,7 @@
       "en": "Draftie",
       "ko": "Draftie"
     },
-    "contentFile": "data/projects/project-3-draftie.json"
-  },
-  {
-    "id": "project-2",
-    "year": 2026,
-    "categories": [
-      "product"
-    ],
-    "title": {
-      "en": "Teethplay",
-      "ko": "Teethplay"
-    },
-    "contentFile": "data/projects/project-2-teethplay.json"
+    "contentFile": "data/projects/project-2-draftie.json"
   },
   {
     "id": "project-1",

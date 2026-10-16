@@ -1,12 +1,12 @@
 {
-  "id": "project-3",
+  "id": "project-2",
   "content": [
     {
       "type": "media",
       "items": [
         {
           "type": "image",
-          "src": "assets/images/projects/project-3/thumbnail.png",
+          "src": "assets/images/projects/project-2/thumbnail.png",
           "alt": ""
         }
       ]
@@ -28,12 +28,12 @@
       "items": [
         {
           "type": "image",
-          "src": "assets/images/projects/project-3/stillcut_3.jpg",
+          "src": "assets/images/projects/project-2/stillcut_3.jpg",
           "alt": ""
         },
         {
           "type": "image",
-          "src": "assets/images/projects/project-3/stillcut_2.jpg",
+          "src": "assets/images/projects/project-2/stillcut_2.jpg",
           "alt": ""
         }
       ]
@@ -57,7 +57,7 @@
       "items": [
         {
           "type": "image",
-          "src": "assets/images/projects/project-3/stillcut_6.png",
+          "src": "assets/images/projects/project-2/stillcut_6.png",
           "alt": ""
         }
       ]
@@ -67,7 +67,7 @@
       "items": [
         {
           "type": "image",
-          "src": "assets/images/projects/project-3/stillcut_5.png",
+          "src": "assets/images/projects/project-2/stillcut_5.png",
           "alt": ""
         }
       ]
