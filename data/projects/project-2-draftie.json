@@ -49,7 +49,7 @@
       "type": "text",
       "value": {
         "en": "In conventional computer environments, text written by the user and text brought in from AI become intermingled through the same hardware operations, browser tabs, and documents. Draftie separates the process of importing and managing AI text from this existing workflow. Importing is assigned to the dedicated board, while reviewing and revising the imported text takes place in the dedicated editor. The application runs only when the board is connected and closes when it is disconnected. Importing and exporting also take place through the board. This deliberately restricted structure creates a separate workflow in which users can examine the source and revision status of AI text before it enters their existing writing environment.",
-        "ko": "기존 컴퓨터 환경에서는 직접 작성한 글과 AI에서 가져온 글이 같은 키보드 조작과 여러 탭, 문서 안에서 자연스럽게 뒤섞인다. Draftie는 AI 텍스트를 가져오고 관리하는 경로를 이 흐름에서 분리했다. 가져오는 조작은 전용 스위치 보드에, 가져온 글을 검토하고 수정하는 작업은 전용 에디터에 배치했다. 보드를 연결해야 앱이 실행되고, 연결을 해제하면 종료된다. 텍스트를 가져오고 내보내는 조작 역시 보드를 통해 이루어진다. 이러한 폐쇄적 구조는 AI의 언어가 기존 글쓰기 환경에 곧바로 섞이기 전에 별도의 공간에서 출처와 수정 상태를 확인하며 다루도록 유저 플로우를 분리하는 역할을 한다."
+        "ko": "기존 컴퓨터 환경에서는 직접 작성한 글과 AI에서 가져온 글이 같은 키보드 조작과 여러 탭, 문서 안에서 자연스럽게 뒤섞인다. Draftie는 AI 텍스트를 가져오고 관리하는 경로를 폐쇄적인 구조의 에디터와 별도의 하드웨어를 사용함으로써 이 흐름으로부터 분리한다. 가져오는 조작은 전용 스위치 보드에, 가져온 글을 검토하고 수정하는 작업은 전용 에디터에 배치된다. 보드를 연결하지 않으면 앱을 실행할 수 없으며, 연결을 해제하는 순간 에디터가 종료된다."
       }
     },
     {
