@@ -9,6 +9,7 @@ export async function mountNotes({ dataUrl, containerId }) {
   let items = [];
   try {
     items = await fetchJSON(dataUrl);
+    if (!Array.isArray(items)) throw new Error("Notes data must be an array");
   } catch (err) {
     console.error(err);
     container.innerHTML = `<li class="state-msg">${t("error.load")}</li>`;
@@ -25,7 +26,8 @@ function renderNotes(container, items) {
     container.innerHTML = `<li class="state-msg">${t("empty")}</li>`;
     return;
   }
-  container.innerHTML = items.map(noteHTML).join("");
+  // Append new notes to the JSON; display the newest block first.
+  container.innerHTML = [...items].reverse().map(noteHTML).join("");
 }
 
 function noteHTML(item) {
@@ -38,8 +40,10 @@ function noteHTML(item) {
 
   return `
     <li class="note-item">
-      ${date ? `<time class="note-date">${escapeHTML(date)}</time>` : ""}
-      <article class="note-body">${paragraphs}</article>
+      <article class="note-body">
+        ${date ? `<time class="note-date" datetime="${escapeHTML(date)}">${escapeHTML(date)}</time>` : ""}
+        ${paragraphs}
+      </article>
     </li>
   `;
 }

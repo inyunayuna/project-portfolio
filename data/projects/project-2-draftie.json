@@ -97,7 +97,7 @@
       "type": "text",
       "value": {
         "en": "Software prototype is vibe-coded with Claude Opus 4.8 and GPT-6 Astra\n Description text is grammatically revised with GPT-6 Astra\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher",
-        "ko": "해당 프로젝트의 소프트웨어 프로토타입은 Claude Opus 4.8, GPT-6 Astra로 작업되었습니다.\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher"
+        "ko": "해당 프로젝트의 소프트웨어 프로토타입은 Claude Opus 4.8, GPT-6 Astra로 구현되었습니다.\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher"
       }
     }
   ]

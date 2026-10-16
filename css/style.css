@@ -543,7 +543,7 @@ body[data-lang="ko"] {
 .project-content > .content-text + .content-text { margin-top: 0; }
 
 /* =========================================================================
-   Notes — 텍스트 글타래 (시간순 추가)
+   Notes — 새 블록이 위에 쌓이는 텍스트 글타래
    - 각 노트는 흰 박스 + 검은 외곽선
    - 텍스트 + 하이퍼링크만 지원
    ========================================================================= */
@@ -559,8 +559,7 @@ body[data-lang="ko"] {
   display: block;
   font-size: 0.85em;
   color: var(--c-muted);
-  padding: 0 var(--row-pad-x);
-  margin-bottom: 6px;
+  margin-bottom: 0.5em;
   font-variant-numeric: tabular-nums;
 }
 

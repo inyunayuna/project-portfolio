@@ -28,7 +28,7 @@ portfolio/
 │   ├── utils.js        ← 공용 유틸 (escapeHTML, fetchJSON 등)
 │   ├── list-view.js    ← 목록 렌더링
 │   ├── detail-view.js  ← 상세 페이지 렌더링
-│   ├── project-data.js ← 프로젝트 본문 로딩·요청 캐시
+│   ├── project-data.js ← 프로젝트·Writings 본문 로딩·요청 캐시
 │   └── notes-view.js   ← 노트 렌더링
 │
 ├── data/               ← ⭐ 콘텐츠는 모두 여기서 관리합니다
@@ -38,7 +38,9 @@ portfolio/
 │   │   ├── project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
 │   │   ├── project-2-draftie.json  ← Draftie
 │   │   └── project-1-another-audience.json  ← Another Audience
-│   ├── research.json   ← Writings 목록 (기존 주소 유지)
+│   ├── research.json   ← Writings 순서·제목·연도·태그·본문 파일 경로
+│   ├── research/       ← Writings 항목별 본문 (id + content)
+│   │   └── research-1-another-audience.json
 │   └── notes.json      ← 노트 목록
 │
 └── assets/
@@ -159,8 +161,41 @@ assets/images/projects/project-4/
 
 ## 3. Writings 글 추가
 
-Writings는 기존처럼 `data/research.json`의 각 항목에 `id`, `year`, `categories`, `title`, `content`를 함께 작성합니다. `content`의 블록 형식은 프로젝트 본문과 같습니다.
-이미지는 `assets/images/research/<article-id>/`에.
+프로젝트와 같은 방식으로 목록 정보와 본문을 나눕니다.
+
+1. `data/research.json`에 제목·연도·태그·본문 파일 경로를 추가합니다. 배열 순서가 표시 순서입니다.
+
+```json
+{
+  "id": "research-2",
+  "year": 2026,
+  "categories": ["research"],
+  "title": {
+    "en": "My New Essay",
+    "ko": "새 글"
+  },
+  "contentFile": "data/research/research-2-my-new-essay.json"
+}
+```
+
+2. `data/research/research-2-my-new-essay.json`에 같은 `id`와 `content`를 작성합니다.
+
+```json
+{
+  "id": "research-2",
+  "content": [
+    {
+      "type": "text",
+      "value": {
+        "en": "First paragraph.\n\nSecond paragraph.",
+        "ko": "첫 문단.\n\n두 번째 문단."
+      }
+    }
+  ]
+}
+```
+
+본문 파일명은 프로젝트처럼 `<id>-<영문제목>.json` 형식을 사용합니다. `content`의 이미지·텍스트·영상 임베드 블록 형식도 동일합니다. 현재 Another Audience 글의 본문은 `data/research/research-1-another-audience.json`입니다. 이미지는 `assets/images/research/<article-id>/`에 두고, 경로는 사이트 루트를 기준으로 작성합니다.
 
 > 상세 페이지는 `project.html?id=xxx&src=research`로 자동 연결됩니다.
 
@@ -168,11 +203,12 @@ Writings는 기존처럼 `data/research.json`의 각 항목에 `id`, `year`, `ca
 
 ## 4. 노트 추가
 
-`data/notes.json`에 항목을 추가합니다.
+`data/notes.json` 배열의 **맨 끝에** 새 객체를 추가합니다. 객체 하나가 흰색 문장 블록 하나입니다. 데이터는 오래된 것부터 저장하고, 화면에서는 역순으로 보여 새 블록이 맨 위에 쌓이고 기존 블록이 아래로 내려갑니다. 날짜 유무와 관계없이 추가한 순서대로 처리합니다.
 
 ```json
 {
-  "date": "2026-01-01",
+  "id": "note-2",
+  "date": "2026-10-16",
   "body": {
     "en": "Text here. [Link label](https://example.com)\n\nNew paragraph.",
     "ko": "내용. **볼드**도 가능."
@@ -180,7 +216,9 @@ Writings는 기존처럼 `data/research.json`의 각 항목에 `id`, `year`, `ca
 }
 ```
 
-- `\n\n` — 단락 나누기
+기존 블록의 마지막 `}` 뒤에 쉼표를 붙이고, 배열의 닫는 `]` 앞에 위 객체를 넣으면 됩니다. `id`는 블록마다 다르게 지정합니다. `date`는 선택 사항이며 넣으면 흰색 블록 안에 표시합니다. 각 블록 사이 간격은 반응형 모눈 한 칸(`--grid-cell`)입니다.
+
+- `\n\n` — 같은 블록 안에서 단락 나누기. 새 흰색 블록은 배열에 새 객체로 추가합니다.
 - `**텍스트**` — 볼드
 - `[라벨](URL)` — 하이퍼링크
 
@@ -271,6 +309,9 @@ npx serve .
 **Q. 프로젝트 설명을 수정하려면 어디를 열어요?**
 `data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-2-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
 
+**Q. Writings 본문을 수정하려면 어디를 열어요?**
+`data/research.json`의 `contentFile`에 지정된 `data/research/` 안의 파일을 엽니다. 제목·연도·태그·순서는 목록 파일에서 수정합니다.
+
 **Q. 디자인 그리드 / 행 높이를 바꾸고 싶어요**
 `--grid-cell`을 수정하면 해당 breakpoint의 정사각형 모눈·행 높이·여백이 함께 바뀝니다. 블록 끝은 모눈선에 맞추며, 창 끝의 부분 칸은 배경에서 자연스럽게 잘립니다.
 
@@ -293,9 +334,10 @@ npx serve .
 ## 11. 성능과 표시 동작
 
 - Notes 박스: 세로 여백 0.5셀, 가로 여백 0.65셀, 줄간격 1.6, 문단 간격 0.8em.
+- Notes는 JSON 배열의 마지막 항목부터 보여 새 블록이 위로 쌓입니다. 날짜는 블록 안에 표시하고, 블록 사이 간격은 모눈 한 칸으로 유지합니다.
 - Notes와 상세 본문은 타이핑 지연 없이 즉시 표시합니다.
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
-- Work 목록은 가벼운 `data/projects.json`만 불러옵니다. 프로젝트별 본문은 상세 페이지 진입 또는 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 호버 때 다시 시도합니다.
+- Work·Writings 목록은 각각 가벼운 `data/projects.json`·`data/research.json`만 불러옵니다. 항목별 본문은 상세 페이지 진입 시, Work 호버 설명은 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
 - Writings / 글들. 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
