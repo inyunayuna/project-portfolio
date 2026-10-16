@@ -3,6 +3,7 @@ import { pickLang, t } from "./i18n.js";
 import { escapeHTML, escapeAttr, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
 import { alignRowsToGrid } from "./grid-alignment.js";
 import { mountImageViewer } from "./image-viewer.js";
+import { loadProjectContent } from "./project-data.js";
 
 export async function mountDetail({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -17,7 +18,8 @@ export async function mountDetail({ dataUrl, containerId }) {
   let item = null;
   try {
     const items = await fetchJSON(dataUrl);
-    item = items.find(x => x.id === id);
+    const entry = items.find(x => x.id === id);
+    item = entry ? await loadProjectContent(entry) : null;
   } catch (err) {
     console.error(err);
     container.innerHTML = `<p class="state-msg">${t("error.load")}</p>`;

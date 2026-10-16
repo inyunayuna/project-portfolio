@@ -28,11 +28,17 @@ portfolio/
 │   ├── utils.js        ← 공용 유틸 (escapeHTML, fetchJSON 등)
 │   ├── list-view.js    ← 목록 렌더링
 │   ├── detail-view.js  ← 상세 페이지 렌더링
+│   ├── project-data.js ← 프로젝트 본문 로딩·요청 캐시
 │   └── notes-view.js   ← 노트 렌더링
 │
 ├── data/               ← ⭐ 콘텐츠는 모두 여기서 관리합니다
 │   ├── ui.json         ← UI 텍스트 번역 (네비, 필터 라벨 등)
-│   ├── projects.json   ← 프로젝트 목록
+│   ├── projects.json   ← 프로젝트 순서·제목·연도·태그·본문 파일 경로
+│   ├── projects/       ← 프로젝트별 긴 본문 (id + content)
+│   │   ├── project-4-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
+│   │   ├── project-3-draftie.json  ← Draftie
+│   │   ├── project-2-teethplay.json  ← Teethplay
+│   │   └── project-1-another-audience.json  ← Another Audience
 │   ├── research.json   ← Writings 목록 (기존 주소 유지)
 │   └── notes.json      ← 노트 목록
 │
@@ -44,11 +50,11 @@ portfolio/
 
 ---
 
-## 2. 새 프로젝트 추가 (3단계)
+## 2. 새 프로젝트 추가 (4단계)
 
 ### ① 이미지 업로드
 ```
-assets/images/projects/my-new-project/
+assets/images/projects/project-5/
   ├── 01.jpg
   ├── 02.jpg
   └── 03.jpg
@@ -57,21 +63,37 @@ assets/images/projects/my-new-project/
 - 이미지: jpg / png / webp / svg 지원.
 - 영상은 Vimeo 등 외부 서비스에 올린 뒤, 임베드 코드의 `iframe src` 주소로 연결합니다.
 
-### ② `data/projects.json`에 항목 추가
+### ② `data/projects.json`에 목록 정보 추가
+
+목록 파일에는 짧은 정보와 본문 파일 경로만 넣습니다. 배열 순서가 사이트 표시 순서입니다.
+
 ```json
 {
-  "id": "my-new-project",
+  "id": "project-5",
   "year": 2026,
   "categories": ["graphic", "web"],
   "title": {
     "en": "My New Project",
     "ko": "내 새 프로젝트"
   },
+  "contentFile": "data/projects/project-5-my-new-project.json"
+}
+```
+
+### ③ `data/projects/project-5-my-new-project.json`에 본문 작성
+
+파일명은 `<id>-<영문 제목을 소문자·하이픈으로 정리한 이름>.json` 형식입니다. 예: `project-3-draftie.json`. 파일명을 바꾸면 목록의 `contentFile`도 함께 수정합니다.
+
+프로젝트별 파일은 `id`와 `content`만 담습니다. `id`는 목록의 값과 일치해야 합니다. 기존 글의 긴 설명·이미지·영상 순서는 이 파일에서 수정합니다.
+
+```json
+{
+  "id": "project-5",
   "content": [
     {
       "type": "media",
       "items": [
-        { "type": "image", "src": "assets/images/projects/my-new-project/01.jpg", "alt": "표지" }
+        { "type": "image", "src": "assets/images/projects/project-5/01.jpg", "alt": "표지" }
       ]
     },
     {
@@ -84,6 +106,8 @@ assets/images/projects/my-new-project/
   ]
 }
 ```
+
+제목·연도·태그·목록 순서는 `data/projects.json`, 본문은 `data/projects/<id>-<english-title>.json` 한 곳에서 관리하므로 같은 내용을 여러 파일에 복사하지 않습니다. `contentFile`과 이미지의 `src` 경로는 모두 사이트 루트를 기준으로 작성합니다.
 
 #### `content` 배열 구조
 
@@ -98,6 +122,8 @@ assets/images/projects/my-new-project/
 단일 이미지 블록은 원본 비율로 전체를 표시합니다. 단일 이미지는 본문(최대 520px)보다 넓은 최대 760px로 가운데 정렬하고, 좁은 화면에서는 콘텐츠 영역 너비에 맞춥니다. 한 블록에 이미지 2~3개가 들어가면 16:9 프레임으로 맞추며, 비율이 다른 이미지는 일부가 잘릴 수 있습니다.
 
 상세 페이지의 이미지를 클릭하거나 키보드로 선택해 Enter/Space를 누르면 원본 비율의 확대창이 열립니다. 이미지는 화면 해상도(Retina 포함)에 맞춰 원본 픽셀 이상으로 늘리지 않으며 최대 1200×900px와 화면 안쪽 영역으로 제한합니다. 이미지 바깥 영역·닫기 버튼·Esc로 닫을 수 있으며, 닫으면 원래 이미지로 키보드 포커스가 돌아갑니다. 영상은 임베드 서비스의 재생 컨트롤을 사용합니다.
+
+확대창에서는 같은 글의 모든 이미지를 본문 순서대로 넘길 수 있습니다. 데스크톱에서는 커서가 좌우 가장자리에 가까워질 때 닫기 ×와 같은 22px 화살표가 표시됩니다. 키보드의 좌우 방향키도 지원하며, 모바일에서는 좌우 스와이프로 이동합니다. 처음·마지막 이미지에서는 해당 방향으로 더 이동하지 않습니다. 영상 임베드는 이미지 목록에 포함하지 않습니다.
 
 이미지 아이템 형식:
 ```json
@@ -119,7 +145,7 @@ assets/images/projects/my-new-project/
 - `title`은 문자열 또는 `{ "en": "...", "ko": "..." }` 형식입니다.
 - `aspectRatio`를 생략하면 `16 / 9`입니다. 세로 영상은 `9 / 16`, 정사각형은 `1 / 1`로 지정합니다.
 - 영상은 독립된 `embed` 블록으로 추가합니다. `media.items`에는 이미지만 넣습니다.
-- 호버용 썸네일이 필요하면 프로젝트 최상위 `thumbnail`에 이미지 경로를 지정합니다.
+- 호버용 썸네일이 필요하면 `data/projects.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 지정합니다.
 
 #### `categories` 값
 `graphic` · `editorial` · `web` · `product` · `workshop` · `installation` · `research`
@@ -128,13 +154,13 @@ assets/images/projects/my-new-project/
 1. `js/state.js`의 `FILTERS` 배열에 추가
 2. `data/ui.json`의 `filters` 객체에 한국어·영어 번역 추가
 
-### ③ 저장하고 새로고침
+### ④ 저장하고 새로고침
 
 ---
 
 ## 3. Writings 글 추가
 
-`data/research.json`에 같은 구조로 추가합니다.
+Writings는 기존처럼 `data/research.json`의 각 항목에 `id`, `year`, `categories`, `title`, `content`를 함께 작성합니다. `content`의 블록 형식은 프로젝트 본문과 같습니다.
 이미지는 `assets/images/research/<article-id>/`에.
 
 > 상세 페이지는 `project.html?id=xxx&src=research`로 자동 연결됩니다.
@@ -243,6 +269,9 @@ npx serve .
 **Q. 이미지 없이 텍스트만 있는 프로젝트도 가능한가요?**
 네, `content` 배열에 `"type": "text"` 블록만 넣으면 됩니다.
 
+**Q. 프로젝트 설명을 수정하려면 어디를 열어요?**
+`data/projects.json`의 해당 항목에서 `contentFile`을 확인하고 그 파일을 엽니다. 예를 들어 Draftie 본문은 `data/projects/project-3-draftie.json`입니다. 제목·연도·태그는 목록 파일에서 수정합니다.
+
 **Q. 디자인 그리드 / 행 높이를 바꾸고 싶어요**
 `--grid-cell`을 수정하면 해당 breakpoint의 정사각형 모눈·행 높이·여백이 함께 바뀝니다. 블록 끝은 모눈선에 맞추며, 창 끝의 부분 칸은 배경에서 자연스럽게 잘립니다.
 
@@ -267,6 +296,7 @@ npx serve .
 - Notes 박스: 세로 여백 0.5셀, 가로 여백 0.65셀, 줄간격 1.6, 문단 간격 0.8em.
 - Notes와 상세 본문은 타이핑 지연 없이 즉시 표시합니다.
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
+- Work 목록은 가벼운 `data/projects.json`만 불러옵니다. 프로젝트별 본문은 상세 페이지 진입 또는 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 호버 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
 - Writings / 글들. 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
@@ -286,8 +316,8 @@ npx serve .
 
 프로젝트에 호버하거나 제목 링크에 키보드 포커스를 주면 화면 중앙에 이미지가 표시되고 첫 문단은 흰색 카드로 함께 표시됩니다. 레이어 순서는 이미지 → 모눈 → 텍스트 카드 → 프로젝트 목록입니다.
 
-- 기본값: `content`의 첫 이미지.
-- 별도 지정: 프로젝트 최상위에 `"thumbnail": "assets/images/projects/my-project/thumbnail.webp"`를 추가합니다.
+- 기본값: 프로젝트별 본문 파일의 `content`에 있는 첫 이미지. 설명 카드는 같은 파일의 첫 텍스트 문단을 사용합니다.
+- 별도 지정: `data/projects.json`의 해당 목록 항목에 `"thumbnail": "assets/images/projects/my-project/thumbnail.webp"`를 추가합니다.
 - 이미지가 없는 프로젝트도 첫 문단이 있으면 텍스트 카드만 표시합니다.
 - 썸네일은 호버할 때만 불러오며, 화면 가로·세로의 65%와 최대 840×640px 안에서 원본 비율을 유지합니다. 터치 입력에는 표시하지 않습니다.
 

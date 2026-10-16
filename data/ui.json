@@ -26,6 +26,8 @@
       "open": "Enlarge image",
       "view": "Image preview",
       "close": "Close image",
+      "previous": "Previous image",
+      "next": "Next image",
       "error": "Unable to load image."
     },
     "error": {
@@ -61,6 +63,8 @@
       "open": "이미지 크게 보기",
       "view": "확대 이미지",
       "close": "이미지 닫기",
+      "previous": "이전 이미지",
+      "next": "다음 이미지",
       "error": "이미지를 불러올 수 없습니다."
     },
     "error": {

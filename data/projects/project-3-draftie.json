@@ -1,0 +1,97 @@
+{
+  "id": "project-3",
+  "content": [
+    {
+      "type": "media",
+      "items": [
+        {
+          "type": "image",
+          "src": "assets/images/projects/project-3/thumbnail.png",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "embed",
+      "src": "https://player.vimeo.com/video/1236568096?badge=0&autopause=0&player_id=0&app_id=58479",
+      "title": "Draftie"
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "Draftie is an experimental product design project that combines a dedicated hardware controller, the Draftie Board, with a software writing editor. Users import AI-generated text through a browser extension, and the editor compares it with the evolving draft to identify retained word combinations and sentence structures. Sentence-level highlights reveal these traces, while a document-wide percentage, the screen background, and the board’s LEDs communicate the overall revision state. By encouraging users to revise the text in their own words until the highlights disappear, Draftie explores the conditions under which authorship takes shape in human–AI co-writing.",
+        "ko": "첫 번째 단락. 히어로 이미지 바로 아래에 들어갑니다.\n\n빈 줄을 두고 두 번째 단락을 이어갈 수 있습니다."
+      }
+    },
+    {
+      "type": "media",
+      "items": [
+        {
+          "type": "image",
+          "src": "assets/images/projects/project-3/stillcut_3.jpg",
+          "alt": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/images/projects/project-3/stillcut_2.jpg",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "Today, generative AI participates throughout this process in different ways. People edit sentences written by AI, and AI reviews texts that people have revised. From technical reports and academic writing to journalism, writing is becoming a collaborative activity in which human and AI linguistic choices overlap. Authorship is no longer a given within this process. To make a collaboratively produced text their own, people revise content that does not reflect their intentions, add sentences that express their voice, and reconsider its wording and structure. Revision becomes both a decision of refining a text and a means of maintaining, reclaiming, and defending authorship.",
+        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+      }
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "In conventional computer environments, text written by the user and text brought in from AI become intermingled through the same hardware operations, browser tabs, and documents. Draftie separates the process of importing and managing AI text from this existing workflow. Importing is assigned to the dedicated board, while reviewing and revising the imported text takes place in the dedicated editor. The application runs only when the board is connected and closes when it is disconnected. Importing and exporting also take place through the board. This deliberately restricted structure creates a separate workflow in which users can examine the source and revision status of AI text before it enters their existing writing environment.",
+        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+      }
+    },
+    {
+      "type": "media",
+      "items": [
+        {
+          "type": "image",
+          "src": "assets/images/projects/project-3/stillcut_6.png",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "items": [
+        {
+          "type": "image",
+          "src": "assets/images/projects/project-3/stillcut_5.png",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "Highlight colours distinguish the source models, while their intensity indicates how much of the original language remains. The palette begins with yellow, the familiar colour of a highlighter, followed by blue, pink, and green. Passages that retain more of the original construction receive stronger highlights, while those retaining only some elements are marked more lightly. Highlights disappear where the reconstruction criteria are met. Hovering over a highlight reveals the model information and import time associated with that passage. Pressing the second button hides the highlights so users can focus on the writing itself; pressing it again brings the revision feedback back into view.",
+        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+      }
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "Draftie separates the route through which AI language enters a draft and makes its subsequent revision visible. As users revise, they repeatedly encounter what they have retained and what they have changed. What does it mean to choose a linguistic structure for oneself? At what point does AI-generated writing become one’s own? How much must be changed, and in what ways, before a writer can regard the text as their own? By placing these questions within the experience of writing, the project explores the conditions under which authorship takes shape in texts created by humans and AI together.",
+        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+      }
+    },
+    {
+      "type": "text",
+      "value": {
+        "en": "Software prototype is vibe-coded with Claude Opus 4.8 and GPT-6 Astra\n Description text is grammatically revised with GPT-6 Astra\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher",
+        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+      }
+    }
+  ]
+}

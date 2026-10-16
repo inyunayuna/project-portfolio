@@ -431,6 +431,7 @@ body[data-lang="ko"] {
   background: rgb(0 0 0 / 92%);
   overflow: hidden;
   overscroll-behavior: contain;
+  touch-action: pan-y pinch-zoom;
 }
 
 .image-viewer[open] {
@@ -449,12 +450,12 @@ body[data-lang="ko"] {
   min-width: 0;
   min-height: 0;
   object-fit: contain;
+  user-select: none;
 }
 
-.image-viewer-close {
+.image-viewer-close,
+.image-viewer-nav {
   position: absolute;
-  top: 8px;
-  right: 8px;
   z-index: 1;
   width: 44px;
   height: 44px;
@@ -464,8 +465,45 @@ body[data-lang="ko"] {
   line-height: 1;
 }
 
+.image-viewer-close { top: 8px; right: 8px; }
+
+.image-viewer-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.image-viewer-previous { left: 8px; }
+.image-viewer-next { right: 8px; }
+
+.image-viewer-nav::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.6em;
+  height: 0.6em;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.image-viewer-previous::before {
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.image-viewer[data-edge="left"] .image-viewer-previous:not(:disabled),
+.image-viewer[data-edge="right"] .image-viewer-next:not(:disabled),
+.image-viewer-nav:focus-visible:not(:disabled) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .image-viewer-close:focus,
-.image-viewer-close:focus-visible { outline: none; }
+.image-viewer-close:focus-visible,
+.image-viewer-nav:focus,
+.image-viewer-nav:focus-visible { outline: none; }
 
 .image-viewer-message {
   position: absolute;
@@ -475,6 +513,7 @@ body[data-lang="ko"] {
 }
 
 .image-viewer-image[hidden],
+.image-viewer-nav[hidden],
 .image-viewer-message[hidden] { display: none; }
 
 /* 한 개는 원본 비율, 두 개 이상인 블록만 동일한 프레임으로 정렬. */

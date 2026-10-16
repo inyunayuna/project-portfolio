@@ -1,5 +1,6 @@
 import { pickLang } from "./i18n.js";
 import { renderInline, splitParagraphs } from "./utils.js";
+import { loadProjectContent } from "./project-data.js";
 
 // The full diagonal bounds every rotation; reserve room for the CSS drift too.
 export function floatingCardPlacement(bounds, width, height, point) {
@@ -116,11 +117,21 @@ export function mountProjectPreview(container, items) {
   const show = async row => {
     if (row === activeRow) return;
     hide();
-    const item = projects.get(row.dataset.id);
-    if (!item) return;
+    const entry = projects.get(row.dataset.id);
+    if (!entry) return;
     activeRow = row;
     const currentRequest = request;
     point = { x: Math.random(), y: Math.random() };
+    let item;
+    try {
+      item = await loadProjectContent(entry);
+    } catch (error) {
+      console.warn("[project-preview] Unable to load content:", error);
+      // Allow a fresh attempt when the pointer returns to this row.
+      if (currentRequest === request) hide();
+      return;
+    }
+    if (currentRequest !== request) return;
     const content = item.content || [];
     const paragraph = content
       .filter(block => block.type === "text")
