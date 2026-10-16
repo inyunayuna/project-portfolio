@@ -26,7 +26,6 @@
   /* --- Typography ------------------------------------------------------- */
   --font-en: "Merriweather", "Times New Roman", serif;
   --font-ko: "MerriweatherText", "Noto Serif KR", serif;
-  --font-de: "Merriweather", "Times New Roman", serif;
 
   --fs-base: 15px;
   --lh-base: 1.6;
@@ -53,9 +52,10 @@
 @media (max-width: 1023px) { :root { --grid-cell: 28px; } }
 @media (max-width: 720px)  {
   :root {
-    --grid-cell: 24px;
+    --grid-cell: 18px;
+    --row-pad-x: 8px;
     --fs-base: 14px;
-    --topbar-pad-y: 16px;
+    --topbar-pad-y: 14px;
   }
 }
 
@@ -73,7 +73,7 @@ button {
   font: inherit; color: inherit; background: none; border: none;
   padding: 0; cursor: pointer; letter-spacing: inherit;
 }
-img, video { display: block; max-width: 100%; height: auto; }
+img { display: block; max-width: 100%; height: auto; }
 
 /* =========================================================================
    Base
@@ -96,7 +96,7 @@ body {
   background-color: var(--c-bg);
 
   /* 단어 중간에서 줄바꿈하지 않음 — 단어 전체가 다음 줄로.
-     - keep-all: 한국어를 단어 단위로 처리 (영/독은 원래 그렇게 동작)
+     - keep-all: 한국어를 단어 단위로 처리 (영어는 원래 그렇게 동작)
      - overflow-wrap: break-word: 한 단어가 컨테이너보다 길어 넘칠 때만 안전망으로 깨뜨림 */
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -169,7 +169,7 @@ body[data-lang="ko"] {
 
 .project-preview-image {
   max-width: none;
-  animation: preview-turn 200s linear infinite;
+  animation: preview-turn 400s linear infinite;
 }
 
 .project-preview-text-position {
@@ -189,9 +189,9 @@ body[data-lang="ko"] {
 .project-preview-text {
   background: var(--c-bg);
   border: 1px solid var(--c-fg);
-  padding: 16px;
+  padding: 0.5em 0.65em;
   line-height: var(--lh-base);
-  animation: preview-turn 300s linear infinite reverse;
+  animation: preview-turn 600s linear infinite reverse;
 }
 
 .project-preview[hidden],
@@ -373,21 +373,118 @@ body[data-lang="ko"] {
 }
 
 .media-row[data-count="1"] { grid-template-columns: 1fr; }
+.media-row[data-count="1"]:has(img) {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .media-row[data-count="2"] { grid-template-columns: 1fr 1fr; }
 .media-row[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
 
+.media-row:is([data-count="2"], [data-count="3"]) {
+  gap: calc(var(--grid-cell) * 0.5);
+}
+
+.content-embed {
+  width: 100%;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: var(--embed-ratio, 16 / 9);
+  background: #000;
+}
+
+.content-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .media-row .media-item {
   position: relative;
+  min-width: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
   background: #000;
   overflow: hidden;
 }
-.media-row[data-count="1"] .media-item { aspect-ratio: 21 / 9; }
 
-.media-row .media-item img,
-.media-row .media-item video {
-  width: 100%; height: 100%; object-fit: cover;
+.media-row .media-item img {
+  width: 100%;
+  height: auto;
+}
+
+.media-image { cursor: zoom-in; }
+.media-image:focus-visible { outline-offset: -3px; }
+
+.image-viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: clamp(16px, 4vw, 56px);
+  border: 0;
+  color: #fff;
+  background: rgb(0 0 0 / 92%);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.image-viewer[open] {
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+}
+
+.image-viewer::backdrop { background: transparent; }
+
+.image-viewer-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.image-viewer-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  box-shadow: none;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.image-viewer-close:focus,
+.image-viewer-close:focus-visible { outline: none; }
+
+.image-viewer-message {
+  position: absolute;
+  inset: 50% 16px auto;
+  text-align: center;
+  pointer-events: none;
+}
+
+.image-viewer-image[hidden],
+.image-viewer-message[hidden] { display: none; }
+
+/* 한 개는 원본 비율, 두 개 이상인 블록만 동일한 프레임으로 정렬. */
+.media-row:is([data-count="2"], [data-count="3"]) .media-item {
+  aspect-ratio: 16 / 9;
+}
+
+.media-row:is([data-count="2"], [data-count="3"]) .media-item img {
+  height: 100%;
+  object-fit: cover;
 }
 
 /* --- 텍스트 블록 (글-이미지-글 인터리브용) --------------------------- */
@@ -402,6 +499,9 @@ body[data-lang="ko"] {
 }
 
 .content-text p + p { margin-top: 1.4em; }
+
+/* 연속 텍스트는 각 블록의 반 칸 패딩만 남겨 총 간격을 두 칸에서 한 칸으로. */
+.project-content > .content-text + .content-text { margin-top: 0; }
 
 /* =========================================================================
    Notes — 텍스트 글타래 (시간순 추가)
@@ -506,14 +606,14 @@ body[data-lang="ko"] {
 
   .list-row,
   .project-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "title year"
       "meta meta";
     height: auto;
     min-height: calc(var(--grid-cell) * 2);
-    padding: 8px var(--row-pad-x);
-    gap: 0 var(--grid-cell);
+    padding: 2px var(--row-pad-x);
+    gap: 0 0.75em;
     line-height: var(--lh-base);
     align-items: start;
     align-content: center;
@@ -552,6 +652,7 @@ body[data-lang="ko"] {
   body { background: none; }
   .main-area { background: none; }
   .main-area::before, .project-preview, .project-preview-text-position { display: none; }
+  .image-viewer { display: none; }
   .list-row, .project-header {
     background: none !important;
     color: #000 !important;

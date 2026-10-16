@@ -65,7 +65,7 @@ function start() {
   boot().catch(err => {
     console.error("[app] Failed to start:", err);
     document.querySelectorAll('[data-i18n="loading"]').forEach(el => {
-      el.textContent = "Failed to load. Please reload. / 불러오기에 실패했습니다. / Laden fehlgeschlagen.";
+      el.textContent = "Failed to load. Please reload. / 불러오기에 실패했습니다.";
     });
   });
 }

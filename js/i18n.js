@@ -7,7 +7,7 @@
  *   await loadUI();
  *   t("nav.projects")  // 현재 언어에 맞춰 반환
  *
- * 콘텐츠(프로젝트 제목/설명)는 각 데이터 JSON 안에서 {en, ko, de} 객체로
+ * 콘텐츠(프로젝트 제목/설명)는 각 데이터 JSON 안에서 {en, ko} 객체로
  * 저장하고, pickLang() 헬퍼로 꺼냅니다.
  * ---------------------------------------------------------------------------
  */
@@ -56,12 +56,12 @@ export function t(key) {
 
 /**
  * 콘텐츠 JSON에서 다국어 필드 꺼내기.
- *   pickLang({en: "Hi", ko: "안녕", de: "Hallo"})  // 현재 언어
+ *   pickLang({en: "Hi", ko: "안녕"})  // 현재 언어
  *   pickLang("plain string")                       // 그냥 반환
  */
 export function pickLang(field) {
   if (field == null) return "";
   if (typeof field === "string") return field;
   const lang = getState().lang;
-  return field[lang] ?? field.en ?? Object.values(field)[0] ?? "";
+  return field[lang] ?? field.en ?? field.ko ?? "";
 }

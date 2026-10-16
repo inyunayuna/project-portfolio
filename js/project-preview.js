@@ -134,8 +134,7 @@ export function mountProjectPreview(container, items) {
     const media = content.filter(block => block.type === "media")
       .flatMap(block => block.items || []);
     const image = media.find(item => item.type === "image" && item.src);
-    const poster = media.find(item => item.type === "video" && item.poster);
-    const src = item.thumbnail || image?.src || poster?.poster;
+    const src = item.thumbnail || image?.src;
     if (!src) return;
     let url;
     try { url = new URL(src, document.baseURI); } catch { return; }

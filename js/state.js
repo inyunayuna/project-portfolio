@@ -12,12 +12,12 @@
 const STORAGE_KEY = "yuna-portfolio-state";
 
 const DEFAULT_STATE = {
-  lang: "en",        // "en" | "ko" | "de"
+  lang: "en",        // "en" | "ko"
   filter: "all"
 };
 
-const VALID_LANGS    = ["en", "ko", "de"];
-export const FILTERS = ["all", "graphic", "editorial", "web", "product", "workshop", "research"];
+export const LANGUAGES = ["ko", "en"];
+export const FILTERS = ["all", "graphic", "editorial", "web", "product", "workshop", "installation", "research"];
 
 function load() {
   try {
@@ -25,10 +25,12 @@ function load() {
     if (!raw) return { ...DEFAULT_STATE };
     const parsed = JSON.parse(raw);
     // 유효성 체크 — 손상된 값이면 기본값으로
-    return {
-      lang: VALID_LANGS.includes(parsed?.lang) ? parsed.lang : DEFAULT_STATE.lang,
+    const loaded = {
+      lang: LANGUAGES.includes(parsed?.lang) ? parsed.lang : DEFAULT_STATE.lang,
       filter: FILTERS.includes(parsed?.filter) ? parsed.filter : DEFAULT_STATE.filter,
     };
+    if (parsed?.lang !== loaded.lang || parsed?.filter !== loaded.filter) save(loaded);
+    return loaded;
   } catch {
     return { ...DEFAULT_STATE };
   }
@@ -51,7 +53,7 @@ export function getState() {
 
 export function setState(patch) {
   const changes = {};
-  if (VALID_LANGS.includes(patch.lang) && patch.lang !== state.lang) changes.lang = patch.lang;
+  if (LANGUAGES.includes(patch.lang) && patch.lang !== state.lang) changes.lang = patch.lang;
   if (FILTERS.includes(patch.filter) && patch.filter !== state.filter) changes.filter = patch.filter;
   const keys = Object.keys(changes);
   if (!keys.length) return;

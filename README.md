@@ -37,10 +37,9 @@ portfolio/
 │   └── notes.json      ← 노트 목록
 │
 └── assets/
-    ├── images/
-    │   ├── projects/<project-id>/    ← 프로젝트별 폴더로 정리
-    │   └── research/<article-id>/
-    └── videos/
+    └── images/
+        ├── projects/<project-id>/    ← 프로젝트별 폴더로 정리
+        └── research/<article-id>/
 ```
 
 ---
@@ -52,11 +51,11 @@ portfolio/
 assets/images/projects/my-new-project/
   ├── 01.jpg
   ├── 02.jpg
-  └── 03.mp4   ← 영상도 가능
+  └── 03.jpg
 ```
 - 폴더 이름이 곧 프로젝트의 `id`가 됩니다 (소문자 + 하이픈 권장).
 - 이미지: jpg / png / webp / svg 지원.
-- 영상: mp4 권장.
+- 영상은 Vimeo 등 외부 서비스에 올린 뒤, 임베드 코드의 `iframe src` 주소로 연결합니다.
 
 ### ② `data/projects.json`에 항목 추가
 ```json
@@ -66,8 +65,7 @@ assets/images/projects/my-new-project/
   "categories": ["graphic", "web"],
   "title": {
     "en": "My New Project",
-    "ko": "내 새 프로젝트",
-    "de": "Mein neues Projekt"
+    "ko": "내 새 프로젝트"
   },
   "content": [
     {
@@ -80,8 +78,7 @@ assets/images/projects/my-new-project/
       "type": "text",
       "value": {
         "en": "First paragraph.\n\nSecond paragraph after a blank line.",
-        "ko": "첫 단락.\n\n빈 줄 후 둘째 단락.",
-        "de": "Erster Absatz."
+        "ko": "첫 단락.\n\n빈 줄 후 둘째 단락."
       }
     }
   ]
@@ -90,25 +87,46 @@ assets/images/projects/my-new-project/
 
 #### `content` 배열 구조
 
-콘텐츠는 **블록 배열**로, 두 가지 타입을 자유롭게 섞을 수 있습니다.
+콘텐츠는 **블록 배열**로, 다음 타입을 자유롭게 섞을 수 있습니다.
 
 | 타입 | 필드 | 설명 |
 |---|---|---|
-| `"media"` | `items` 배열 | 한 행에 1~3개 이미지/영상 |
+| `"media"` | `items` 배열 | 한 행에 1~3개 이미지 |
 | `"text"`  | `value` 객체 | 본문. `\n\n`으로 단락 구분, `**볼드**`로 강조 |
+| `"embed"` | `src`, `title`, `aspectRatio`(선택) | 영상 임베드 URL과 제목. 기본 16:9, 최대 760px로 표시 |
 
-미디어 아이템 형식:
+단일 이미지 블록은 원본 비율로 전체를 표시합니다. 단일 이미지는 본문(최대 520px)보다 넓은 최대 760px로 가운데 정렬하고, 좁은 화면에서는 콘텐츠 영역 너비에 맞춥니다. 한 블록에 이미지 2~3개가 들어가면 16:9 프레임으로 맞추며, 비율이 다른 이미지는 일부가 잘릴 수 있습니다.
+
+상세 페이지의 이미지를 클릭하거나 키보드로 선택해 Enter/Space를 누르면 원본 비율의 확대창이 열립니다. 이미지는 화면 해상도(Retina 포함)에 맞춰 원본 픽셀 이상으로 늘리지 않으며 최대 1200×900px와 화면 안쪽 영역으로 제한합니다. 이미지 바깥 영역·닫기 버튼·Esc로 닫을 수 있으며, 닫으면 원래 이미지로 키보드 포커스가 돌아갑니다. 영상은 임베드 서비스의 재생 컨트롤을 사용합니다.
+
+이미지 아이템 형식:
 ```json
 { "type": "image", "src": "...", "alt": "선택" }
-{ "type": "video", "src": "...", "poster": "선택", "autoplay": true }
 ```
 
+영상 임베드 블록 예시:
+```json
+{
+  "type": "embed",
+  "src": "https://player.vimeo.com/video/1236568096?badge=0&autopause=0",
+  "title": "Draftie",
+  "aspectRatio": "16 / 9"
+}
+```
+
+- 서비스에서 제공하는 임베드 코드의 `iframe src` 주소를 `src`에 넣습니다. Vimeo 외에도 HTTPS iframe 임베드 주소를 같은 구조로 사용합니다.
+- 일반 영상 공유 페이지 주소 대신 **플레이어 임베드 주소**를 사용합니다. HTML 태그나 별도 플레이어 스크립트는 JSON에 넣지 않습니다.
+- `title`은 문자열 또는 `{ "en": "...", "ko": "..." }` 형식입니다.
+- `aspectRatio`를 생략하면 `16 / 9`입니다. 세로 영상은 `9 / 16`, 정사각형은 `1 / 1`로 지정합니다.
+- 영상은 독립된 `embed` 블록으로 추가합니다. `media.items`에는 이미지만 넣습니다.
+- 호버용 썸네일이 필요하면 프로젝트 최상위 `thumbnail`에 이미지 경로를 지정합니다.
+
 #### `categories` 값
-`graphic` · `editorial` · `web` · `product` · `workshop` · `research`
+`graphic` · `editorial` · `web` · `product` · `workshop` · `installation` · `research`
 
 새 카테고리를 추가하려면:
 1. `js/state.js`의 `FILTERS` 배열에 추가
-2. `data/ui.json`의 `filters` 객체에 3개 언어 번역 추가
+2. `data/ui.json`의 `filters` 객체에 한국어·영어 번역 추가
 
 ### ③ 저장하고 새로고침
 
@@ -132,8 +150,7 @@ assets/images/projects/my-new-project/
   "date": "2026-01-01",
   "body": {
     "en": "Text here. [Link label](https://example.com)\n\nNew paragraph.",
-    "ko": "내용. **볼드**도 가능.",
-    "de": "Text hier."
+    "ko": "내용. **볼드**도 가능."
   }
 }
 ```
@@ -146,12 +163,14 @@ assets/images/projects/my-new-project/
 
 ## 5. 언어 / 폰트
 
-세 가지 언어를 지원합니다: `en` / `ko` / `de`
+한국어와 영어를 지원합니다: `ko` / `en`
 
 | 언어 | 폰트 스택 |
 |---|---|
-| en / de | Merriweather → Times New Roman |
+| en | Merriweather → Times New Roman |
 | ko | MerriweatherText(영문자·숫자) → Noto Serif KR(한글·특수문자) |
+
+이전에 저장된 언어 설정이 더 이상 지원되지 않으면 영어로 전환하고 다시 저장합니다.
 
 한국어 모드에서는 영문자·숫자는 Merriweather가 그대로 처리하고,
 한글과 특수기호만 Noto Serif KR(Medium 500)로 렌더링됩니다.
@@ -187,7 +206,7 @@ assets/images/projects/my-new-project/
 
 ### 업로드 후 확인
 - [ ] `https://yourdomain.com/` — 프로젝트 목록 보임
-- [ ] 언어 전환 (Ko / En / De) 정상 동작
+- [ ] 언어 전환 (Ko / En) 정상 동작
 - [ ] 필터 클릭 시 결과 갱신
 - [ ] 프로젝트 클릭 → 상세 페이지 이동
 - [ ] 모바일에서도 정상 보임
@@ -200,6 +219,8 @@ assets/images/projects/my-new-project/
 ES Modules를 사용하므로 `file://`로 직접 열면 동작하지 않습니다.
 
 **VS Code Live Server** — `index.html` 우클릭 → "Open with Live Server"
+
+이미지 파일 감시로 반복 새로고침이 발생하는 것을 피하기 위해 `.vscode/settings.json`에서 `assets/images/**`를 Live Server 감시 대상에서 제외합니다. 이미지 교체 후에는 브라우저를 수동 새로고침합니다. HTML·CSS·JS·JSON 수정은 기존처럼 자동 반영됩니다. 설정을 처음 적용한 뒤에는 Go Live를 중지했다가 다시 실행합니다. 이 설정은 정적 호스팅에 영향을 주지 않습니다.
 
 **Python**
 ```bash
@@ -248,7 +269,7 @@ npx serve .
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
-- Writings / 글들. / Texte 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
+- Writings / 글들. 탭은 기존 `research.html`, `data/research.json`, `src=research` 주소를 유지합니다.
 - Work의 Research 타입은 프로젝트의 `categories`에 `"research"`를 추가하면 적용됩니다.
 
 ### 모눈 정렬 규칙
@@ -257,6 +278,7 @@ npx serve .
 - 배경 전체는 왼쪽 원점에서 동일한 정사각형 모눈을 반복합니다. 우측 전용 모눈이나 마스크는 사용하지 않습니다.
 - 컨테이너 너비는 모눈 한 칸의 배수로 내림합니다. 블록 양끝은 모눈선에 맞고, 우측에는 한 칸과 창 끝에서 잘리는 부분 칸이 남을 수 있습니다. 고정된 정사각형과 정확한 한 칸 여백을 임의의 창 너비에서 동시에 보장하지 않습니다.
 - 블록 높이와 블록 사이 간격은 세로 모눈의 정수 배수입니다. 글이 줄바꿈되면 필요한 높이까지 칸 단위로 늘어납니다.
+- 모바일(720px 이하)은 18px 모눈, 검은 블록 좌우 8px·상하 최소 2px 여백을 사용합니다. 제목·태그의 줄간격은 1.6, 줄 사이 추가 간격은 0이며, 블록 높이는 18px 배수로 맞춥니다.
 - `js/grid-alignment.js`가 너비 변경과 폰트 로딩 시 화면을 그리기 전에 정렬합니다. 별도 프레임의 높이 보정과 블록별 ResizeObserver는 사용하지 않습니다.
 - 모눈 너비를 계산하거나 분배하는 JavaScript와 빈 우측 띠를 만들던 scrollbar-gutter 설정은 사용하지 않습니다.
 
@@ -264,12 +286,12 @@ npx serve .
 
 프로젝트에 호버하거나 제목 링크에 키보드 포커스를 주면 화면 중앙에 이미지가 표시되고 첫 문단은 흰색 카드로 함께 표시됩니다. 레이어 순서는 이미지 → 모눈 → 텍스트 카드 → 프로젝트 목록입니다.
 
-- 기본값: `content`의 첫 이미지. 이미지가 없으면 영상의 `poster`를 사용합니다.
+- 기본값: `content`의 첫 이미지.
 - 별도 지정: 프로젝트 최상위에 `"thumbnail": "assets/images/projects/my-project/thumbnail.webp"`를 추가합니다.
 - 이미지가 없는 프로젝트도 첫 문단이 있으면 텍스트 카드만 표시합니다.
 - 썸네일은 호버할 때만 불러오며, 화면 가로·세로의 65%와 최대 840×640px 안에서 원본 비율을 유지합니다. 터치 입력에는 표시하지 않습니다.
 
-- 이미지는 시계방향으로 200초에 한 바퀴, 텍스트 카드는 반시계방향으로 300초에 한 바퀴 회전합니다. 카드는 18초 주기로 최대 6px씩 떠다닙니다.
+- 이미지는 시계방향으로 400초에 한 바퀴, 텍스트 카드는 반시계방향으로 600초에 한 바퀴 회전합니다. 카드는 18초 주기로 최대 6px씩 떠다닙니다.
 - 카드 위치는 호버마다 랜덤으로 정하되, 전체 회전의 대각선 길이와 이동 여유를 포함해 보이는 모눈 영역 안에 배치합니다. 좁은 화면에서는 카드 전체를 비율대로 축소하고, 리사이즈·스크롤·폰트 로딩 시 경계를 다시 계산합니다.
 - 운영체제의 동작 줄이기 설정에서는 회전과 이동 애니메이션을 끕니다.
 # project-portfolio

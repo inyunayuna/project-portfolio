@@ -2,6 +2,7 @@ import { subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
 import { escapeHTML, escapeAttr, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
 import { alignRowsToGrid } from "./grid-alignment.js";
+import { mountImageViewer } from "./image-viewer.js";
 
 export async function mountDetail({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -29,6 +30,7 @@ export async function mountDetail({ dataUrl, containerId }) {
   }
 
   const align = alignRowsToGrid(container);
+  mountImageViewer(container);
   const render = () => {
     renderDetail(container, item);
     document.title = `Yuna — ${pickLang(item.title)}`;
@@ -63,31 +65,43 @@ function blockHTML(block) {
   switch (block.type) {
     case "media": return mediaBlockHTML(block);
     case "text":  return textBlockHTML(block);
+    case "embed": return embedBlockHTML(block);
     default:
       console.warn(`[detail-view] Unknown block type: ${block.type}`);
       return "";
   }
 }
 
+function embedBlockHTML(block) {
+  let url;
+  try { url = new URL(block.src); } catch { return ""; }
+  if (url.protocol !== "https:" || url.username || url.password) return "";
+
+  const match = String(block.aspectRatio || "").match(/^\s*(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)\s*$/);
+  const ratio = match && Number(match[1]) > 0 && Number(match[2]) > 0
+    && Number.isFinite(Number(match[1])) && Number.isFinite(Number(match[2]))
+    ? `${Number(match[1])} / ${Number(match[2])}` : "16 / 9";
+
+  return `<div class="content-embed" style="--embed-ratio: ${ratio}">
+      <iframe src="${escapeAttr(url.href)}"
+              title="${escapeAttr(pickLang(block.title) || t("embed.title"))}"
+              loading="lazy"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+    </div>`;
+}
+
 function mediaBlockHTML(block) {
-  const items = Array.isArray(block.items) ? block.items.slice(0, 3) : [];
+  const items = Array.isArray(block.items)
+    ? block.items.filter(item => item?.type === "image" && item.src).slice(0, 3) : [];
   if (!items.length) return "";
 
-  const inner = items.map(m => {
-    if (m.type === "video") {
-      return `<div class="media-item">
-          <video src="${escapeAttr(m.src)}"
-                 ${m.poster ? `poster="${escapeAttr(m.poster)}"` : ""}
-                 muted loop playsinline preload="none"
-                 ${m.autoplay ? "autoplay" : "controls"}></video>
-        </div>`;
-    }
-    return `<div class="media-item">
+  const inner = items.map(m => `<button type="button" class="media-item media-image" aria-label="${escapeAttr(t("image.open"))}">
         <img src="${escapeAttr(m.src)}"
              alt="${escapeAttr(m.alt || "")}"
              loading="lazy" decoding="async">
-      </div>`;
-  }).join("");
+      </button>`).join("");
 
   return `<div class="media-row" data-count="${items.length}">${inner}</div>`;
 }

@@ -1,4 +1,4 @@
-import { FILTERS, getState, setState, subscribe } from "./state.js";
+import { FILTERS, LANGUAGES, getState, setState, subscribe } from "./state.js";
 import { t } from "./i18n.js";
 
 // 배열: sub-header에 필터 버튼 표시 / null: 브랜드만 표시
@@ -7,8 +7,6 @@ const FILTERS_BY_PAGE = {
   research: null,
   notes:    null,
 };
-
-const LANGS = ["ko", "en", "de"];
 
 function currentPage() {
   return document.body.dataset.page || "projects";
@@ -70,7 +68,7 @@ function renderHeader() {
     </div>
 
     <div class="nav-center lang-switch" role="group" aria-label="Language">
-      ${LANGS.map((lc, i) => `
+      ${LANGUAGES.map((lc, i) => `
         ${i > 0 ? '<span class="sep">/</span>' : ""}
         <button type="button"
                 class="lang-btn ${lc === lang ? "is-active" : ""}"
