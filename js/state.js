@@ -1,14 +1,3 @@
-/**
- * state.js
- * ---------------------------------------------------------------------------
- * 전역 상태 (현재 언어 / 필터)를 한 곳에서 관리합니다.
- * localStorage에 저장해서 새로고침해도 유지됩니다.
- *
- * - 상태가 바뀌면 등록된 listener들이 호출됩니다 (간단한 pub/sub).
- * - 새로운 상태 키가 필요해도 여기 한 군데만 늘리면 됩니다.
- * ---------------------------------------------------------------------------
- */
-
 const STORAGE_KEY = "yuna-portfolio-state";
 
 const DEFAULT_STATE = {
@@ -24,7 +13,6 @@ function load() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { ...DEFAULT_STATE };
     const parsed = JSON.parse(raw);
-    // 유효성 체크 — 손상된 값이면 기본값으로
     const loaded = {
       lang: LANGUAGES.includes(parsed?.lang) ? parsed.lang : DEFAULT_STATE.lang,
       filter: FILTERS.includes(parsed?.filter) ? parsed.filter : DEFAULT_STATE.filter,
@@ -39,9 +27,7 @@ function load() {
 function save(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    /* localStorage 비활성화 환경 — 무시 */
-  }
+  } catch {}
 }
 
 const state = load();

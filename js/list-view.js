@@ -8,7 +8,6 @@ export async function mountList({ dataUrl, containerId, detailHref, useFilter = 
   const container = document.getElementById(containerId);
   if (!container) return;
 
-  // 이벤트 위임 — 렌더가 반복돼도 리스너는 한 번만 붙음
   container.addEventListener("click", e => {
     const row = e.target.closest(".list-row");
     if (!row || e.target.closest("a")) return;

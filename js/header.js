@@ -2,7 +2,6 @@ import { FILTERS, LANGUAGES, getState, setState, subscribe } from "./state.js";
 import { t } from "./i18n.js";
 import { renderText } from "./utils.js";
 
-// 배열: sub-header에 필터 버튼 표시 / null: 브랜드만 표시
 const FILTERS_BY_PAGE = {
   projects: FILTERS,
   writings: null,
@@ -13,7 +12,6 @@ function currentPage() {
   return document.body.dataset.page || "projects";
 }
 
-// project-detail 페이지는 ?src=writings 여부로 탭 결정, 나머지는 페이지명 그대로
 function pageToTab() {
   const p = currentPage();
   if (p !== "project-detail") return p;
@@ -121,7 +119,6 @@ function renderSubHeader() {
   el.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const f = btn.dataset.filter;
-      // 상세 페이지에서 필터를 누르면 목록으로 이동
       if (currentPage().endsWith("detail")) {
         setState({ filter: f });
         window.location.href = goToList;
