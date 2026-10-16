@@ -75,7 +75,7 @@
     {
       "type": "text",
       "value": {
-        "en": "User selects text on an AI website and press the board’s first button. The selected text enters the editor together with the available model information and the time of import. External text cannot be added through ordinary pasting; it must be brought in using the Draftie Board’s import button. User can then use own regular keyboard to add new content or revise the wording and structure of the draft. Draftie’s analysis software continuously matches passages in the evolving draft to the imported source, comparing their semantic similarity, grammatical structures, and patterns of expression as the user writes own draft",
+        "en": "User selects text on an AI website and press the board’s first button. The selected text enters the editor together with the available model information and the time of import. External text cannot be added through ordinary pasting; it must be brought in using the Draftie Board’s import button. User can then use own regular keyboard to add new content or revise the wording and structure of the draft. Draftie’s analysis software continuously matches passages in the evolving draft to the imported source, comparing their semantic similarity, grammatical structures, and patterns of expression as the user writes own draft.",
         "ko": "사용자는 AI 사이트에서 가져올 글을 드래그한 뒤 보드의 첫 번째 버튼을 누른다. 선택된 글은 확인 가능한 모델 정보와 가져온 시점 정보를 포함하여 에디터의 드래프트에 추가(이동)된다. 일반적인 복사, 붙여넣기로는 외부 텍스트를 추가할 수 없으며, 오직 드래프티 보드에서의 가져오기 버튼을 사용해야만 한다. 그 이후 유저는 일반 키보드로 직접 새로운 내용을 입력하거나 글의 표현, 구조 등을 수정할 수 있다. 드래프티의 분석 프로그램은 문장 별 내용 관계를 실시간으로 지속 대조하여 초기의 외부에서 가져와진 원본 소스 텍스트와 수정되어가는 텍스트의 의미 유사도와 문법, 표현 구성을 비교한다."
       }
     },
