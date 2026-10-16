@@ -20,7 +20,7 @@
       "type": "text",
       "value": {
         "en": "Draftie is an experimental product design project that combines a dedicated hardware controller, the Draftie Board, with a software writing editor. Users import AI-generated text through a browser extension, and the editor compares it with the evolving draft to identify retained word combinations and sentence structures. Sentence-level highlights reveal these traces, while a document-wide percentage, the screen background, and the board’s LEDs communicate the overall revision state. By encouraging users to revise the text in their own words until the highlights disappear, Draftie explores the conditions under which authorship takes shape in human–AI co-writing.",
-        "ko": "첫 번째 단락. 히어로 이미지 바로 아래에 들어갑니다.\n\n빈 줄을 두고 두 번째 단락을 이어갈 수 있습니다."
+        "ko": "Draftie는 이러한 인간과 AI의 코라이팅 경험을 탐색하는 라이팅 에디터이자 실험적 프로덕트 디자인 프로젝트다. 전용 하드웨어 스위치 보드인 ‘드래프티 보드’와 이에 연동된 앱으로 구성되며, 브라우저 확장 프로그램을 통해 AI가 생성한 텍스트를 가져온다. 에디터는 처음 가져온 원문과 현재 글을 비교해 어휘 조합과 문장 구조가 얼마나 남아 있는지 분석한다. 그 결과는 문장별 하이라이트, 문서 전체의 잔여 비율, 화면 배경과 보드의 LED로 나타난다. 사용자는 수정에 따라 달라지는 피드백을 보며 원문의 표현을 다시 선택하고 구성한다."
       }
     },
     {
@@ -42,14 +42,14 @@
       "type": "text",
       "value": {
         "en": "Today, generative AI participates throughout this process in different ways. People edit sentences written by AI, and AI reviews texts that people have revised. From technical reports and academic writing to journalism, writing is becoming a collaborative activity in which human and AI linguistic choices overlap. Authorship is no longer a given within this process. To make a collaboratively produced text their own, people revise content that does not reflect their intentions, add sentences that express their voice, and reconsider its wording and structure. Revision becomes both a decision of refining a text and a means of maintaining, reclaiming, and defending authorship.",
-        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+        "ko": "오늘날 생성형 AI는 이 과정의 곳곳에 참여한다. AI가 작성한 문장을 사람이 편집하고, 사람이 고친 글을 다시 AI가 검토한다. 기술 보고서와 학술적 글쓰기부터 저널리즘에 이르기까지, 글쓰기는 인간과 AI의 언어적 선택이 겹쳐지는 공동 작업이 되고 있다. 그 안에서 저자성은 더 이상 당연하게 주어지지 않는다. 사람들은 함께 만들어진 글을 자신의 것으로 만들기 위해 의도와 맞지 않는 내용을 고치고, 자신의 말투가 드러나는 문장을 덧붙이며, 표현과 구조를 다시 선택한다. 수정은 글을 다듬는 작업이자 저자성을 유지하고 회복하며 방어하는 과정이 된다."
       }
     },
     {
       "type": "text",
       "value": {
         "en": "In conventional computer environments, text written by the user and text brought in from AI become intermingled through the same hardware operations, browser tabs, and documents. Draftie separates the process of importing and managing AI text from this existing workflow. Importing is assigned to the dedicated board, while reviewing and revising the imported text takes place in the dedicated editor. The application runs only when the board is connected and closes when it is disconnected. Importing and exporting also take place through the board. This deliberately restricted structure creates a separate workflow in which users can examine the source and revision status of AI text before it enters their existing writing environment.",
-        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+        "ko": "기존 컴퓨터 환경에서는 직접 작성한 글과 AI에서 가져온 글이 같은 키보드 조작과 여러 탭, 문서 안에서 자연스럽게 뒤섞인다. Draftie는 AI 텍스트를 가져오고 관리하는 경로를 이 흐름에서 분리했다. 가져오는 조작은 전용 스위치 보드에, 가져온 글을 검토하고 수정하는 작업은 전용 에디터에 배치했다. 보드를 연결해야 앱이 실행되고, 연결을 해제하면 종료된다. 텍스트를 가져오고 내보내는 조작 역시 보드를 통해 이루어진다. 이러한 폐쇄적 구조는 AI의 언어가 기존 글쓰기 환경에 곧바로 섞이기 전에 별도의 공간에서 출처와 수정 상태를 확인하며 다루도록 유저 플로우를 분리하는 역할을 한다."
       }
     },
     {
@@ -75,22 +75,29 @@
     {
       "type": "text",
       "value": {
+        "en": "User selects text on an AI website and press the board’s first button. The selected text enters the editor together with the available model information and the time of import. External text cannot be added through ordinary pasting; it must be brought in using the Draftie Board’s import button. User can then use own regular keyboard to add new content or revise the wording and structure of the draft. Draftie’s analysis software continuously matches passages in the evolving draft to the imported source, comparing their semantic similarity, grammatical structures, and patterns of expression as the user writes own draft",
+        "ko": "사용자는 AI 사이트에서 가져올 글을 드래그한 뒤 보드의 첫 번째 버튼을 누른다. 선택한 글은 확인 가능한 모델 정보와 가져온 시점 정보를 포함 에디터에 들어온다. 일반적인 붙여넣기로는 외부 텍스트를 추가할 수 없으며, 오직 드래프티 보드에서의 가져오기 버튼을 사용해야만 한다. 그 이후 유저는 일반 키보드로 직접 새로운 내용을 입력하거나 글의 표현, 구조 등을 수정할 수 있다. 드래프티의 분석 프로그램은 문장 별 내용 관계를 실시간으로 지속 대조하여 초기의 외부에서 가져와진 원본 소스 텍스트와 수정되어가는 텍스트의 의미 유사도와 문법, 표현 구성을 비교한다."
+      }
+    },
+    {
+      "type": "text",
+      "value": {
         "en": "Highlight colours distinguish the source models, while their intensity indicates how much of the original language remains. The palette begins with yellow, the familiar colour of a highlighter, followed by blue, pink, and green. Passages that retain more of the original construction receive stronger highlights, while those retaining only some elements are marked more lightly. Highlights disappear where the reconstruction criteria are met. Hovering over a highlight reveals the model information and import time associated with that passage. Pressing the second button hides the highlights so users can focus on the writing itself; pressing it again brings the revision feedback back into view.",
-        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+        "ko": "하이라이트의 색은 출처 모델을, 농도는 원문의 잔여 정도를 구분한다. 익숙한 형광펜 색인 노랑부터 파랑·분홍·녹색 등을 배정하고, 원문의 구성이 많이 남은 부분은 진하게, 일부만 남은 부분은 옅게 표시한다. 재구성 기준을 충족한 부분에서는 색이 사라진다. 하이라이트에 마우스를 올리면 해당 텍스트의 모델 정보와 가져온 시각을 확인할 수 있다. 두 번째 버튼을 누르면 하이라이트를 숨겨 글 자체에 집중할 수 있고, 다시 누르면 수정 상태를 살필 수 있다."
       }
     },
     {
       "type": "text",
       "value": {
         "en": "Draftie separates the route through which AI language enters a draft and makes its subsequent revision visible. As users revise, they repeatedly encounter what they have retained and what they have changed. What does it mean to choose a linguistic structure for oneself? At what point does AI-generated writing become one’s own? How much must be changed, and in what ways, before a writer can regard the text as their own? By placing these questions within the experience of writing, the project explores the conditions under which authorship takes shape in texts created by humans and AI together.",
-        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+        "ko": "Draftie는 이처럼 AI의 언어를 가져오는 경로를 분리하고, 가져온 언어가 수정되는 과정을 드러낸다. 사용자는 문장을 고치는 동안 자신이 무엇을 남기고 무엇을 바꾸었는지 반복해서 마주한다. 직접 선택한 언어적 구조란 무엇인가. AI가 생성한 글은 어디부터 나의 글이 되는가. 얼마나, 그리고 어떻게 고쳐야 그 글을 자신의 것으로 받아들일 수 있는가. 이 프로젝트는 이러한 질문을 실제 글쓰기 경험 안에 놓고, 인간과 AI가 함께 만든 글에서 저자성이 형성되는 조건을 탐색한다."
       }
     },
     {
       "type": "text",
       "value": {
         "en": "Software prototype is vibe-coded with Claude Opus 4.8 and GPT-6 Astra\n Description text is grammatically revised with GPT-6 Astra\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher",
-        "ko": "이 프로젝트는 그러한 변형 과정을 인터랙티브 웹 디자인으로 시각화합니다. 사용자가 사이트에 문장을 직접 입력하고 엔터를 누르는 순간, 텍스트는 배경에 흡수되어 겹겹이 쌓입니다. 누적된 문장들은 공처럼 비어 있는 구멍에 의해 뚫리며, 이 구멍은 사이트 위를 떠다니는 입자 형태와 호응합니다."
+        "ko": "해당 프로젝트의 소프트웨어 프로토타입은 Claude Opus 4.8, GPT-6 Astra로 작업되었습니다.\n\nSpecial thanks to: Peter von Maydell, Daniel Axel Neubacher"
       }
     }
   ]
