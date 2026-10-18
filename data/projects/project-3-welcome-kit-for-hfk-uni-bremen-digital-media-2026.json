@@ -22,7 +22,7 @@
       "type": "text",
       "value": {
         "en": "The PCB keychain has three buttons and can be used as a macro switch by connecting it to a laptop or desktop computer via a USB-C cable. By default, each button is set to type “Welcome,” “2,” and “Digital Media.” Students can download the software from the Codeberg link printed on the back of the PCB and customize the board to suit their needs.",
-        "ko": "PCB 키링은 세 개의 버튼으로 구성되어 있으며, USB Type-C 케이블로 노트북이나 컴퓨터에 연결해 매크로 스위치로 사용할 수 있다. 각 버튼의 초기 입력값은 ‘Welcome’, ‘2’, ‘Digital Media’로 설정되어 있으며, 학생들은 PCB 뒷면에 표기된 Codeberg 링크에 접속하여 배포되어 있는 프로그램을 다운로드해 보드를 직접 커스텀할 수 있다."
+        "ko": "PCB 키링은 세 개의 스위치로 구성되어 있으며, USB Type-C 케이블로 노트북이나 컴퓨터에 연결해 매크로 키보드로 사용할 수 있다. 각 키의 초기 입력값은 ‘Welcome’, ‘2’, ‘Digital Media’로 설정되어 있으며, 학생들은 PCB 뒷면에 표기된 Codeberg 링크에 접속하여 배포되어 있는 프로그램을 다운로드해 보드를 직접 커스텀할 수 있다."
       }
     },
     {
