@@ -107,7 +107,10 @@ export function mountProjectPreview(container, items) {
         const image = new Image();
         image.decoding = "async";
         image.onload = () => resolve(image);
-        image.onerror = () => resolve(null);
+        image.onerror = () => {
+          cache.delete(src);
+          resolve(null);
+        };
         image.src = src;
       }));
     }
@@ -133,19 +136,17 @@ export function mountProjectPreview(container, items) {
     }
     if (currentRequest !== request) return;
     const content = item.content || [];
-    const paragraph = content
-      .filter(block => block.type === "text")
-      .map(block => splitParagraphs(pickLang(block.value))[0])
-      .find(Boolean);
+    const firstText = content.find(block => block.type === "text" && pickLang(block.value).trim());
+    const paragraph = firstText ? splitParagraphs(pickLang(firstText.value))[0] : "";
     hasText = Boolean(paragraph);
     textElement.innerHTML = paragraph ? renderInline(paragraph) : "";
     layer.hidden = false;
     layout();
 
-    const media = content.filter(block => block.type === "media")
-      .flatMap(block => block.items || []);
-    const image = media.find(item => item.type === "image" && item.src);
-    const src = item.thumbnail || image?.src;
+    const src = item.thumbnail || content
+      .filter(block => block.type === "media")
+      .flatMap(block => block.items || [])
+      .find(item => item.type === "image" && item.src)?.src;
     if (!src) return;
     let url;
     try { url = new URL(src, document.baseURI); } catch { return; }

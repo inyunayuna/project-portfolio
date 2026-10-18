@@ -13,6 +13,7 @@ portfolio/
 ├── index.html          ← 프로젝트 목록 (메인)
 ├── writings.html       ← Writings 목록
 ├── notes.html          ← 노트 (텍스트 글타래)
+├── cv.html             ← CV (현재 작업 중 안내)
 ├── project.html        ← 프로젝트/글 상세 — ?id=xxx 로 호출
 ├── 404.html
 ├── .htaccess           ← Hostinger(Apache) 서버 설정
@@ -33,6 +34,7 @@ portfolio/
 │
 ├── data/               ← ⭐ 콘텐츠는 모두 여기서 관리합니다
 │   ├── ui.json         ← UI 텍스트 번역 (네비, 필터 라벨 등)
+│   ├── cv.json         ← CV 문구 (한글/영문)
 │   ├── projects.json   ← 프로젝트 순서·제목·연도·태그·본문 파일 경로
 │   ├── projects/       ← 프로젝트별 긴 본문 (id + content)
 │   │   ├── project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json  ← Welcome Kit
@@ -60,7 +62,7 @@ assets/images/projects/project-4/
   ├── 02.jpg
   └── 03.jpg
 ```
-- 폴더 이름이 곧 프로젝트의 `id`가 됩니다 (소문자 + 하이픈 권장).
+- 이미지 폴더명은 자유롭게 정하며, JSON의 `src` 경로와 일치시키면 됩니다.
 - 이미지: jpg / png / webp / svg 지원.
 - 영상은 Vimeo 등 외부 서비스에 올린 뒤, 임베드 코드의 `iframe src` 주소로 연결합니다.
 
@@ -70,7 +72,7 @@ assets/images/projects/project-4/
 
 ```json
 {
-  "id": "project-4",
+  "id": "MyNewProject",
   "year": 2026,
   "categories": ["graphic", "web"],
   "title": {
@@ -83,13 +85,13 @@ assets/images/projects/project-4/
 
 ### ③ `data/projects/project-4-my-new-project.json`에 본문 작성
 
-파일명은 `<id>-<영문 제목을 소문자·하이픈으로 정리한 이름>.json` 형식입니다. 예: `project-2-draftie.json`. 파일명을 바꾸면 목록의 `contentFile`도 함께 수정합니다.
+`id`는 `Draftie`, `AnotherAudience`, `WelcomeKit`처럼 짧은 영문 제목으로 지정합니다. 주소는 `project.html?id=Draftie` 형식이며, 별도 페이지나 주소 설정을 추가하지 않습니다. 본문 파일명은 자유롭게 정하되, 목록의 `contentFile`과 일치시킵니다.
 
 프로젝트별 파일은 `id`와 `content`만 담습니다. `id`는 목록의 값과 일치해야 합니다. 기존 글의 긴 설명·이미지·영상 순서는 이 파일에서 수정합니다.
 
 ```json
 {
-  "id": "project-4",
+  "id": "MyNewProject",
   "content": [
     {
       "type": "media",
@@ -108,7 +110,7 @@ assets/images/projects/project-4/
 }
 ```
 
-제목·연도·태그·목록 순서는 `data/projects.json`, 본문은 `data/projects/<id>-<english-title>.json` 한 곳에서 관리하므로 같은 내용을 여러 파일에 복사하지 않습니다. `contentFile`과 이미지의 `src` 경로는 모두 사이트 루트를 기준으로 작성합니다.
+제목·연도·태그·목록 순서는 `data/projects.json`, 본문은 `contentFile`이 가리키는 파일 한 곳에서 관리하므로 같은 내용을 여러 파일에 복사하지 않습니다. `contentFile`과 이미지의 `src` 경로는 모두 사이트 루트를 기준으로 작성합니다.
 
 #### `content` 배열 구조
 
@@ -342,6 +344,7 @@ npx serve .
 - Notes 블록 높이도 격자 한 칸의 배수로 맞추며, 테두리가 모눈선에 겹치도록 배치합니다. 화면 너비·언어·폰트가 바뀌면 글 길이에 맞춰 다시 정렬합니다.
 - Notes는 JSON 배열의 마지막 항목부터 보여 새 블록이 위로 쌓입니다. 날짜는 블록 안에 표시하고, 블록 사이 간격은 모눈 한 칸으로 유지합니다.
 - Notes와 상세 본문은 타이핑 지연 없이 즉시 표시합니다.
+- CV는 `cv.html`에서 열리며, 문구는 `data/cv.json`에서 수정합니다. 기존 텍스트 블록 렌더러를 사용합니다.
 - 페이지에 필요한 뷰 모듈만 불러옵니다.
 - Work·Writings 목록은 각각 `data/projects.json`·`data/writings.json`을 불러옵니다. `contentFile`로 분리한 본문은 상세 페이지 진입 또는 목록 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
@@ -367,8 +370,7 @@ npx serve .
 - 별도 지정: `data/projects.json` 또는 `data/writings.json`의 해당 목록 항목에 `thumbnail` 이미지 경로를 추가합니다.
 - 이미지가 없는 프로젝트도 첫 문단이 있으면 텍스트 카드만 표시합니다.
 - 썸네일은 호버할 때만 불러오며, 화면 가로·세로의 65%와 최대 840×640px 안에서 원본 비율을 유지합니다. 터치 입력에는 표시하지 않습니다.
-
+- 이미지 로딩에 실패하면 다음 호버에서 다시 시도합니다. 성공한 이미지와 본문 요청은 캐시합니다.
 - 이미지는 시계방향으로 400초에 한 바퀴, 텍스트 카드는 반시계방향으로 600초에 한 바퀴 회전합니다. 카드는 18초 주기로 최대 6px씩 떠다닙니다.
 - 카드 위치는 호버마다 랜덤으로 정하되, 전체 회전의 대각선 길이와 이동 여유를 포함해 보이는 모눈 영역 안에 배치합니다. 좁은 화면에서는 카드 전체를 비율대로 축소하고, 리사이즈·스크롤·폰트 로딩 시 경계를 다시 계산합니다.
 - 운영체제의 동작 줄이기 설정에서는 회전과 이동 애니메이션을 끕니다.
-# project-portfolio

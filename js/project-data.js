@@ -21,6 +21,9 @@ export async function loadProjectContent(item) {
   }
 
   const data = await contentFiles.get(url);
-  if (data.id !== item.id) throw new Error(`Project ID mismatch: ${url}`);
+  if (data.id !== item.id) {
+    contentFiles.delete(url);
+    throw new Error(`Project ID mismatch: ${url}`);
+  }
   return { ...item, content: data.content };
 }

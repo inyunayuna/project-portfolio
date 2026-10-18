@@ -17,6 +17,7 @@ export async function mountList({ dataUrl, containerId, detailHref, useFilter = 
   let items = [];
   try {
     items = await fetchJSON(dataUrl);
+    if (!Array.isArray(items)) throw new Error(`List data must be an array: ${dataUrl}`);
   } catch (err) {
     console.error(err);
     container.innerHTML = `<li class="state-msg">${renderText(t("error.load"))}</li>`;

@@ -1,7 +1,7 @@
 {
   "en": {
     "brand": "Yuna, since 2023",
-    "index": "Index",
+    "cv": "CV",
     "loading": "Loading…",
     "empty": "No items.",
     "nav": {
@@ -38,7 +38,7 @@
   },
   "ko": {
     "brand": "Yuna, since 2023",
-    "index": "Index",
+    "cv": "CV",
     "loading": "불러오는 중…",
     "empty": "표시할 항목이 없습니다.",
     "nav": {

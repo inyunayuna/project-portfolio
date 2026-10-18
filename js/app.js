@@ -8,6 +8,7 @@ const VIEWS = {
   writings: "./list-view.js",
   "project-detail": "./detail-view.js",
   notes: "./notes-view.js",
+  cv: "./notes-view.js",
 };
 
 async function boot() {
@@ -47,9 +48,10 @@ async function boot() {
     }
 
     case "notes":
+    case "cv":
       await view.mountNotes({
-        dataUrl: "data/notes.json",
-        containerId: "notes-list",
+        dataUrl: `data/${page}.json`,
+        containerId: page === "cv" ? "cv-content" : "notes-list",
       });
       break;
 
@@ -61,17 +63,9 @@ async function boot() {
   }
 }
 
-function start() {
-  boot().catch(err => {
-    console.error("[app] Failed to start:", err);
-    document.querySelectorAll('[data-i18n="loading"]').forEach(el => {
-      el.innerHTML = renderText("Failed to load. Please reload. / 불러오기에 실패했습니다.");
-    });
+boot().catch(err => {
+  console.error("[app] Failed to start:", err);
+  document.querySelectorAll('[data-i18n="loading"]').forEach(el => {
+    el.innerHTML = renderText("Failed to load. Please reload. / 불러오기에 실패했습니다.");
   });
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", start, { once: true });
-} else {
-  start();
-}
+});

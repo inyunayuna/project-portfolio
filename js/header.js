@@ -2,12 +2,6 @@ import { FILTERS, LANGUAGES, getState, setState, subscribe } from "./state.js";
 import { t } from "./i18n.js";
 import { renderText } from "./utils.js";
 
-const FILTERS_BY_PAGE = {
-  projects: FILTERS,
-  writings: null,
-  notes:    null,
-};
-
 function currentPage() {
   return document.body.dataset.page || "projects";
 }
@@ -21,15 +15,13 @@ function pageToTab() {
 }
 
 export function mountHeader() {
-  renderHeader();
-  renderSubHeader();
-  updateLanguage();
-
-  subscribe(() => {
+  const render = () => {
     updateLanguage();
     renderHeader();
     renderSubHeader();
-  }, ["lang"]);
+  };
+  render();
+  subscribe(render, ["lang"]);
 
   subscribe(() => {
     const { filter } = getState();
@@ -48,7 +40,7 @@ function updateLanguage() {
   const page = currentPage();
   const tab = pageToTab();
   if (page !== "project-detail" && page !== "404") {
-    document.title = `Yuna — ${t("nav." + tab)}`;
+    document.title = `Yuna — ${t(tab === "cv" ? "cv" : "nav." + tab)}`;
   }
 }
 
@@ -91,9 +83,7 @@ function renderSubHeader() {
   const el = document.querySelector('[data-component="sub-header"]');
   if (!el) return;
 
-  const filterList = FILTERS_BY_PAGE[pageToTab()];
-
-  if (!filterList) {
+  if (pageToTab() !== "projects") {
     el.innerHTML = `<span class="nav-brand">${renderText(t("brand"))}</span>`;
     return;
   }
@@ -103,7 +93,7 @@ function renderSubHeader() {
 
   el.innerHTML = `
     <div class="filter-list" role="group" aria-label="Filter">
-      ${filterList.map(f => `
+      ${FILTERS.map(f => `
         <button type="button"
                 class="filter-btn ${f === filter ? "is-active" : ""}"
                 data-filter="${f}"
@@ -113,17 +103,14 @@ function renderSubHeader() {
       `).join("")}
     </div>
     <span class="nav-brand">${renderText(t("brand"))}</span>
-    <a class="index-link" href="${goToList}">${renderText(t("index"))}</a>
+    <a class="cv-link" href="cv.html">${renderText(t("cv"))}</a>
   `;
 
   el.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const f = btn.dataset.filter;
-      if (currentPage().endsWith("detail")) {
-        setState({ filter: f });
+      setState({ filter: btn.dataset.filter });
+      if (currentPage() === "project-detail") {
         window.location.href = goToList;
-      } else {
-        setState({ filter: f });
       }
     });
   });

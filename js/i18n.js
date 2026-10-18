@@ -1,33 +1,22 @@
 import { getState } from "./state.js";
+import { fetchJSON } from "./utils.js";
 
 let UI = null;
 
 export async function loadUI() {
-  if (UI) return UI;
-  const res = await fetch("data/ui.json");
-  if (!res.ok) throw new Error(`Failed to load ui.json: ${res.status}`);
-  UI = await res.json();
+  if (!UI) UI = await fetchJSON("data/ui.json");
   return UI;
 }
 
 export function t(key) {
   if (!UI) return key;
-  const lang = getState().lang;
   const parts = key.split(".");
 
-  let cur = UI[lang];
-  for (const p of parts) {
-    if (cur == null) break;
-    cur = cur[p];
+  for (const lang of [getState().lang, "en"]) {
+    let value = UI[lang];
+    for (const part of parts) value = value?.[part];
+    if (typeof value === "string") return value;
   }
-  if (typeof cur === "string") return cur;
-
-  cur = UI.en;
-  for (const p of parts) {
-    if (cur == null) break;
-    cur = cur[p];
-  }
-  if (typeof cur === "string") return cur;
 
   console.warn(`[i18n] missing key: ${key}`);
   return key;

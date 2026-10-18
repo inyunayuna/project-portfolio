@@ -1,6 +1,6 @@
 [
   {
-    "id": "project-3",
+    "id": "WelcomeKit",
     "year": 2026,
     "categories": [
       "graphic",
@@ -13,7 +13,7 @@
     "contentFile": "data/projects/project-3-welcome-kit-for-hfk-uni-bremen-digital-media-2026.json"
   },
   {
-    "id": "project-2",
+    "id": "Draftie",
     "year": 2026,
     "categories": [
       "product",
@@ -27,7 +27,7 @@
     "contentFile": "data/projects/project-2-draftie.json"
   },
   {
-    "id": "project-1",
+    "id": "AnotherAudience",
     "year": 2026,
     "categories": [
       "installation",
