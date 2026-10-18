@@ -22,7 +22,7 @@ portfolio/
 │
 ├── js/
 │   ├── app.js          ← 진입점 — 페이지별 뷰 마운트
-│   ├── state.js        ← 언어/필터 전역 상태 (localStorage 저장)
+│   ├── state.js        ← 언어/필터 전역 상태 (sessionStorage 저장)
 │   ├── i18n.js         ← 다국어 헬퍼 (t, pickLang)
 │   ├── header.js       ← 상단 네비 + 필터 바
 │   ├── utils.js        ← 공용 유틸 (escapeHTML, fetchJSON 등)
@@ -228,6 +228,8 @@ assets/images/projects/project-4/
 
 한국어와 영어를 지원합니다: `ko` / `en`
 
+사이트의 기본 진입 페이지는 영어 Work 목록(`index.html`)입니다. 새 탭에서 처음 접속하면 영어·전체 유형으로 시작하며, 선택한 언어와 필터는 현재 탭의 `sessionStorage`에 저장해 메뉴 이동과 새로고침 중에 유지합니다. 이전 방문의 `localStorage` 설정은 사용하지 않습니다.
+
 | 언어 | 폰트 스택 |
 |---|---|
 | en | Merriweather → Times New Roman |
@@ -275,7 +277,8 @@ assets/images/projects/project-4/
 - [ ] 필터 클릭 시 결과 갱신
 - [ ] 프로젝트 클릭 → 상세 페이지 이동
 - [ ] 모바일에서도 정상 보임
-- [ ] 새로고침해도 선택한 언어 유지 (localStorage)
+- [ ] 새 탭에서 처음 접속하면 영어 Work 목록 표시
+- [ ] 메뉴 이동·새로고침 시 현재 탭에서 선택한 언어 유지 (sessionStorage)
 
 ---
 
@@ -328,7 +331,7 @@ npx serve .
 
 - HTML5 + CSS3 (Custom Properties, Grid, Flexbox)
 - ES Modules (`<script type="module">`)
-- Fetch API + localStorage
+- Fetch API + sessionStorage
 - 빌드 도구 없음 — 수정 후 새로고침으로 즉시 반영
 
 지원 브라우저: 최근 2년 이내 Chrome / Safari / Firefox / Edge (IE 미지원)
@@ -343,7 +346,7 @@ npx serve .
 - Work·Writings 목록은 각각 `data/projects.json`·`data/writings.json`을 불러옵니다. `contentFile`로 분리한 본문은 상세 페이지 진입 또는 목록 호버 시 필요한 파일만 읽고, 같은 페이지에서 반복 요청은 캐시합니다. 본문 로딩 실패는 다음 요청 때 다시 시도합니다.
 - 같은 언어/필터를 다시 선택하면 저장과 렌더링을 생략합니다.
 - 상세/Notes/Writings는 언어 변경에만 본문을 갱신합니다.
-- Writings / 글들. 탭은 `writings.html`이며, 목록은 `data/writings.json`, 글별 본문은 `data/writings/`에서 관리합니다. 상세 페이지는 `src=writings`로 구분합니다.
+- Writings / 적어둔 것들. 탭은 `writings.html`이며, 목록은 `data/writings.json`, 글별 본문은 `data/writings/`에서 관리합니다. 상세 페이지는 `src=writings`로 구분합니다.
 - Work의 Research 타입은 프로젝트의 `categories`에 `"research"`를 추가하면 적용됩니다.
 
 ### 모눈 정렬 규칙

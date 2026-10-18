@@ -10,7 +10,7 @@ export const FILTERS = ["all", "graphic", "editorial", "web", "product", "worksh
 
 function load() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = sessionStorage.getItem(STORAGE_KEY);
     if (!raw) return { ...DEFAULT_STATE };
     const parsed = JSON.parse(raw);
     const loaded = {
@@ -26,7 +26,7 @@ function load() {
 
 function save(state) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {}
 }
 
