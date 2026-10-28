@@ -5,6 +5,7 @@ import { alignRowsToGrid } from "./grid-alignment.js";
 import { mountImageViewer } from "./image-viewer.js";
 import { loadProjectContent } from "./project-data.js";
 import { imageAttributes } from "./responsive-images.js";
+import { mountTextReveal } from "./text-reveal.js";
 
 export async function mountDetail({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -33,11 +34,13 @@ export async function mountDetail({ dataUrl, containerId }) {
   }
 
   const align = alignRowsToGrid(container);
+  const reveal = mountTextReveal(container, align);
   mountImageViewer(container);
   const render = () => {
     renderDetail(container, item);
     document.title = `Yuna — ${pickLang(item.title)}`;
     align();
+    reveal();
   };
   render();
   subscribe(render, ["lang"]);

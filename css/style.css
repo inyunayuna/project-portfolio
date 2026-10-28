@@ -505,6 +505,12 @@ body[data-lang="ko"] {
 
 .content-text p + p { margin-top: 1.4em; }
 
+/* A minimal insertion point; completed text grows naturally in document flow. */
+.text-reveal-waiting { min-height: 1px; }
+.content-text p[hidden], .note-body p[hidden] { display: none; }
+/* Keep the viewport steady while newly written lines push later content down. */
+.project-content, .notes-list { overflow-anchor: none; }
+
 .project-content > .content-text + .content-text { margin-top: 0; }
 
 .notes-list {

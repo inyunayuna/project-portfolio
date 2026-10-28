@@ -2,6 +2,7 @@ import { subscribe } from "./state.js";
 import { pickLang, t } from "./i18n.js";
 import { escapeAttr, renderText, fetchJSON, splitParagraphs, renderInline } from "./utils.js";
 import { alignRowsToGrid } from "./grid-alignment.js";
+import { mountTextReveal } from "./text-reveal.js";
 
 export async function mountNotes({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -18,9 +19,11 @@ export async function mountNotes({ dataUrl, containerId }) {
   }
 
   const align = alignRowsToGrid(container);
+  const reveal = mountTextReveal(container, align);
   const render = () => {
     renderNotes(container, items);
     align();
+    reveal();
   };
   render();
   subscribe(render, ["lang"]);
