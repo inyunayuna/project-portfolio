@@ -1,7 +1,7 @@
 import { loadUI } from "./i18n.js";
 import { mountHeader } from "./header.js";
 import { mountGridAlignment } from "./grid-alignment.js";
-import { renderText } from "./utils.js";
+import { renderText, fetchJSON } from "./utils.js";
 
 const VIEWS = {
   projects: "./list-view.js",
@@ -14,6 +14,18 @@ const VIEWS = {
 async function boot() {
   mountGridAlignment();
   const page = document.body.dataset.page;
+  const params = new URLSearchParams(location.search);
+  const dataUrl = page === "project-detail"
+    ? `data/${params.get("src") === "writings" ? "writings" : "projects"}.json`
+    : VIEWS[page] ? `data/${page}.json` : null;
+  // Start content alongside translations and the view module, not after them.
+  if (dataUrl) {
+    fetchJSON(dataUrl).then(items => {
+      if (page !== "project-detail" || !Array.isArray(items)) return;
+      const entry = items.find(item => item.id === params.get("id"));
+      if (entry?.contentFile) return fetchJSON(entry.contentFile);
+    }).catch(() => {}); // The mounted view owns the visible error/retry state.
+  }
   const [, view] = await Promise.all([
     loadUI(),
     VIEWS[page] ? import(VIEWS[page]) : null,

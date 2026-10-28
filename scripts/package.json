@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "description": "Optional image preparation; no runtime dependencies",
+  "dependencies": { "sharp": "0.35.4" }
+}

@@ -14,10 +14,21 @@ export function renderText(value) {
   return escapeHTML(value).replace(/\p{Script=Hangul}+/gu, '<span class="hangul">$&</span>');
 }
 
-export async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
-  return res.json();
+// Share early/in-flight requests within this document. A new navigation still
+// revalidates JSON, so editing content never requires rebuilding the site.
+const jsonRequests = new Map();
+export function fetchJSON(url) {
+  if (!jsonRequests.has(url)) {
+    const request = fetch(url).then(res => {
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      return res.json();
+    }).catch(error => {
+      jsonRequests.delete(url);
+      throw error;
+    });
+    jsonRequests.set(url, request);
+  }
+  return jsonRequests.get(url);
 }
 
 export function splitParagraphs(raw) {

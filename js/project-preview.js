@@ -1,6 +1,7 @@
 import { pickLang } from "./i18n.js";
 import { renderInline, splitParagraphs } from "./utils.js";
 import { loadProjectContent } from "./project-data.js";
+import { previewImage } from "./responsive-images.js";
 
 // The full diagonal bounds every rotation; reserve room for the CSS drift too.
 export function floatingCardPlacement(bounds, width, height, point) {
@@ -148,12 +149,13 @@ export function mountProjectPreview(container, items) {
       .flatMap(block => block.items || [])
       .find(item => item.type === "image" && item.src)?.src;
     if (!src) return;
+    const preview = previewImage(src);
     let url;
-    try { url = new URL(src, document.baseURI); } catch { return; }
+    try { url = new URL(preview.src, document.baseURI); } catch { return; }
     if (!["http:", "https:"].includes(url.protocol)) return;
     const loaded = await load(url.href);
     if (currentRequest !== request || !loaded?.naturalWidth || !loaded.naturalHeight) return;
-    activeImage = loaded;
+    activeImage = preview.naturalWidth ? preview : loaded;
     imageElement.src = url.href;
     layout();
     imagePosition.hidden = false;

@@ -156,7 +156,7 @@ export function mountImageViewer(container) {
     if (!trigger || !container.contains(trigger) || dialog?.open) return;
     gallery = [...container.querySelectorAll("button.media-image")].flatMap(button => {
       const source = button.querySelector("img");
-      return source?.src ? [{ button, src: source.currentSrc || source.src, alt: source.alt }] : [];
+      return source?.src ? [{ button, src: source.dataset.originalSrc || source.src, alt: source.alt }] : [];
     });
     const start = gallery.findIndex(item => item.button === trigger);
     if (start === -1) return;

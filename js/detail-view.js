@@ -4,6 +4,7 @@ import { renderText, escapeAttr, fetchJSON, splitParagraphs, renderInline } from
 import { alignRowsToGrid } from "./grid-alignment.js";
 import { mountImageViewer } from "./image-viewer.js";
 import { loadProjectContent } from "./project-data.js";
+import { imageAttributes } from "./responsive-images.js";
 
 export async function mountDetail({ dataUrl, containerId }) {
   const container = document.getElementById(containerId);
@@ -48,7 +49,7 @@ function renderDetail(container, item) {
   const year = item.year ?? "";
 
   const blocksHTML = (item.content || [])
-    .map(blockHTML)
+    .map((block, index) => blockHTML(block, index === 0))
     .filter(Boolean)
     .join("");
 
@@ -62,10 +63,10 @@ function renderDetail(container, item) {
   `;
 }
 
-function blockHTML(block) {
+function blockHTML(block, aboveFold) {
   if (!block?.type) return "";
   switch (block.type) {
-    case "media": return mediaBlockHTML(block);
+    case "media": return mediaBlockHTML(block, aboveFold);
     case "text":  return textBlockHTML(block);
     case "embed": return embedBlockHTML(block);
     default:
@@ -97,15 +98,15 @@ function embedBlockHTML(block) {
     </div>`;
 }
 
-function mediaBlockHTML(block) {
+function mediaBlockHTML(block, aboveFold) {
   const items = Array.isArray(block.items)
     ? block.items.filter(item => item?.type === "image" && item.src).slice(0, 3) : [];
   if (!items.length) return "";
 
-  const inner = items.map(m => `<button type="button" class="media-item media-image" aria-label="${escapeAttr(t("image.open"))}">
-        <img src="${escapeAttr(m.src)}"
+  const inner = items.map((m, index) => `<button type="button" class="media-item media-image" aria-label="${escapeAttr(t("image.open"))}">
+        <img ${imageAttributes(m.src, items.length)} data-original-src="${escapeAttr(m.src)}"
              alt="${escapeAttr(m.alt || "")}"
-             loading="lazy" decoding="async">
+             loading="${aboveFold ? "eager" : "lazy"}" ${aboveFold && index === 0 ? 'fetchpriority="high"' : ""} decoding="async">
       </button>`).join("");
 
   return `<div class="media-row" data-count="${items.length}">${inner}</div>`;

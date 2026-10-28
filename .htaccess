@@ -14,6 +14,7 @@ ErrorDocument 404 /404.html
   AddType application/javascript .js
   AddType application/json .json
   AddType image/svg+xml .svg
+  AddType image/webp .webp
   AddType font/woff2 .woff2
   AddType font/woff .woff
 </IfModule>
