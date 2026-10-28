@@ -1,0 +1,66 @@
+import { getState, subscribe } from "./state.js";
+import { pickLang, t } from "./i18n.js";
+import { renderText, escapeAttr, fetchJSON } from "./utils.js";
+import { alignRowsToGrid } from "./grid-alignment.js";
+import { mountProjectPreview } from "./project-preview.js";
+
+export async function mountList({ dataUrl, containerId, detailHref, useFilter = true }) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.addEventListener("click", e => {
+    const row = e.target.closest(".list-row");
+    if (!row || e.target.closest("a")) return;
+    window.location.href = detailHref(row.dataset.id);
+  });
+
+  let items = [];
+  try {
+    items = await fetchJSON(dataUrl);
+    if (!Array.isArray(items)) throw new Error(`List data must be an array: ${dataUrl}`);
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = `<li class="state-msg">${renderText(t("error.load"))}</li>`;
+    return;
+  }
+
+  const align = alignRowsToGrid(container);
+  const hidePreview = mountProjectPreview(container, items);
+  const render = () => {
+    hidePreview();
+    renderList(container, items, detailHref, useFilter);
+    align();
+  };
+  render();
+  subscribe(render, useFilter ? ["lang", "filter"] : ["lang"]);
+}
+
+function renderList(container, items, detailHref, useFilter) {
+  const { filter } = getState();
+
+  const filtered = items.filter(item => {
+    if (!useFilter || filter === "all") return true;
+    return Array.isArray(item.categories) && item.categories.includes(filter);
+  });
+
+  if (!filtered.length) {
+    container.innerHTML = `<li class="state-msg">${renderText(t("empty"))}</li>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => rowHTML(item, detailHref)).join("");
+}
+
+function rowHTML(item, detailHref) {
+  const title = renderText(pickLang(item.title));
+  const categories = (item.categories || []).map(c => t("filters." + c)).join(", ");
+  const year = item.year ?? "";
+
+  return `
+    <li class="list-row${categories ? "" : " without-categories"}" data-id="${escapeAttr(item.id)}">
+      <a class="row-title" href="${escapeAttr(detailHref(item.id))}">${title}</a>
+      ${categories ? `<span class="row-meta">${renderText(categories)}</span>` : ""}
+      <span class="row-year">${renderText(year)}</span>
+    </li>
+  `;
+}

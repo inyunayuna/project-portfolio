@@ -1,14 +1,21 @@
-// A single writing cursor follows the document from top to bottom.
-const CHARACTER_DELAY = 20; // About 36 characters/second, without a duration cap.
+// Visible paragraphs write independently so scrolling never waits for earlier text.
+const CHARACTER_DELAY = 16; // Milliseconds between characters; smaller values type faster.
 
 export function mountTextReveal(container, onLayout = () => {}) {
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const segmenter = typeof Intl.Segmenter === "function"
     ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
   let paragraphs = [];
-  let index = 0;
   let observer;
-  let timer;
+  let layoutFrame;
+
+  const scheduleLayout = () => {
+    if (layoutFrame) return;
+    layoutFrame = requestAnimationFrame(() => {
+      layoutFrame = null;
+      onLayout();
+    });
+  };
 
   const restore = entry => {
     for (const part of entry.parts) {
@@ -21,26 +28,16 @@ export function mountTextReveal(container, onLayout = () => {}) {
   };
 
   const complete = () => {
-    clearTimeout(timer);
+    for (const entry of paragraphs) clearTimeout(entry.timer);
+    cancelAnimationFrame(layoutFrame);
+    layoutFrame = null;
     observer?.disconnect();
     paragraphs.forEach(restore);
     paragraphs = [];
     onLayout();
   };
 
-  const waitForNext = () => {
-    const entry = paragraphs[index];
-    if (!entry) return;
-    // Only the next paragraph has an insertion point. Later paragraphs occupy
-    // no space, so each new line physically pushes the content below it down.
-    entry.element.hidden = false;
-    entry.element.classList.add("text-reveal-waiting");
-    onLayout();
-    observer.observe(entry.element);
-  };
-
   const type = entry => {
-    if (paragraphs[index] !== entry) return;
     entry.element.classList.remove("text-reveal-waiting");
     while (entry.part < entry.parts.length) {
       const part = entry.parts[entry.part];
@@ -54,20 +51,18 @@ export function mountTextReveal(container, onLayout = () => {}) {
         continue;
       }
       part.node.appendData(part.characters[part.position++]);
-      onLayout();
-      timer = setTimeout(() => type(entry), CHARACTER_DELAY);
+      scheduleLayout();
+      entry.timer = setTimeout(() => type(entry), CHARACTER_DELAY);
       return;
     }
     restore(entry);
-    index++;
-    onLayout();
-    waitForNext();
+    entry.timer = null;
+    scheduleLayout();
   };
 
   const refresh = () => {
     complete();
     if (motion.matches || !("IntersectionObserver" in window)) return;
-    index = 0;
     paragraphs = [...container.querySelectorAll(".content-text p, .note-body p")].map(element => {
       const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
       const parts = [];
@@ -84,18 +79,24 @@ export function mountTextReveal(container, onLayout = () => {}) {
           node.hidden = true;
         }
       }
-      element.hidden = true;
+      // Keep a small observable insertion point without reserving the full text height.
+      element.hidden = false;
+      element.classList.add("text-reveal-waiting");
       element.inert = true;
-      return { element, parts, part: 0 };
+      return { element, parts, part: 0, started: false, timer: null };
     });
+    const byElement = new Map(paragraphs.map(entry => [entry.element, entry]));
     observer = new IntersectionObserver(entries => {
-      const entry = paragraphs[index];
-      if (entry && entries.some(item => item.target === entry.element && item.isIntersecting)) {
+      for (const item of entries) {
+        const entry = byElement.get(item.target);
+        if (!entry || entry.started || !item.isIntersecting) continue;
+        entry.started = true;
         observer.unobserve(entry.element);
         type(entry);
       }
-    }, { threshold: 0, rootMargin: "0px 0px -24px 0px" });
-    waitForNext();
+    }, { threshold: 0, rootMargin: "0px" });
+    onLayout();
+    paragraphs.forEach(entry => observer.observe(entry.element));
   };
 
   motion.addEventListener("change", () => { if (motion.matches) complete(); });
